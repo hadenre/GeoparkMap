@@ -14,11 +14,11 @@ var mongoose = require('mongoose');
 // }
 var dotenv = require('dotenv');
 dotenv.config();
-const mongoURI = "mongodb+srv://lchristison:<maryjane666>@geoparkdb.pfw20.mongodb.net/geoparkDB?retryWrites=true&w=majority";
+
 //const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 //Port Number and Connection String to DB
 var port = process.env.PORT;
-//var mongoURI = process.env.mongoURI;
+var mongoURI = process.env.mongoURI;
 
 //var port = process.env.PORT || 3000;
 //var mongoURI = process.env.mongoURI || 'mongodb://localhost:27017/geopark';
