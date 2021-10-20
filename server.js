@@ -18,7 +18,7 @@ dotenv.config();
 var port = process.env.PORT;
 //var mongoURI = process.env.mongoURI;
 var mongoURI = "mongodb+srv://lchristison:<maryjane666>@geoparkdb.pfw20.mongodb.net/geoparkDB?retryWrites=true&w=majority";
-
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 //var port = process.env.PORT || 3000;
 //var mongoURI = process.env.mongoURI || 'mongodb://localhost:27017/geopark';
 
@@ -61,7 +61,8 @@ app.use('/admin', require('./routes/admin'));
 app.use('/api', require('./routes/api'));
 
 //Initialise DB Conenction
-mongoose.connect(mongoURI, {
+
+/*mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -69,7 +70,13 @@ mongoose.connect(mongoURI, {
 })
     .catch((err) => {
         console.log('Not connected to the DB with err: ' + err);
-    });
+    });*/
+
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
 
 //Initialise HTTP server
 app.listen(port, () => {
