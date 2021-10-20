@@ -63,7 +63,7 @@ app.use('/api', require('./routes/api'));
 
 //Initialise DB Conenction
 
-/*mongoose.connect(mongoURI, {
+mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -71,13 +71,8 @@ app.use('/api', require('./routes/api'));
 })
     .catch((err) => {
         console.log('Not connected to the DB with err: ' + err);
-    });*/
+    });
 
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
 
 //Initialise HTTP server
 app.listen(port, () => {
