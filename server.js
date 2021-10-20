@@ -5,8 +5,8 @@ var bodyParser = require('body-parser');
 var handlebars = require('express-handlebars');
 var passport = require('passport');
 var session = require('express-session');
-//var mongoose = require('mongoose');
-const { mongoose } = require('mongodb');
+var mongoose = require('mongoose');
+//const { mongoose } = require('mongodb');
 // var cors = require('cors');
 // var corsOptions = {
 //     origin: 'http://localhost:3000',
@@ -19,7 +19,7 @@ dotenv.config();
 var port = process.env.PORT;
 //var mongoURI = process.env.mongoURI;
 var mongoURI = "mongodb+srv://lchristison:<maryjane666>@geoparkdb.pfw20.mongodb.net/geoparkDB?retryWrites=true&w=majority";
-const client = new mongoose(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+//const client = new mongoose(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 //var port = process.env.PORT || 3000;
 //var mongoURI = process.env.mongoURI || 'mongodb://localhost:27017/geopark';
 
