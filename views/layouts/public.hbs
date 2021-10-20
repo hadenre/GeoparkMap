@@ -1,0 +1,1163 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoPark Map</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+    {{{body}}}
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/three@0.106.2/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.106.2/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <script>
+
+    
+
+        // Screen Rotation Check
+
+        window.addEventListener("deviceorientation", isRotated, true);
+     //  const content = new Array();
+        //var popR = "";
+        isRotated();
+
+        function isRotated() {
+            if (window.innerHeight > window.innerWidth) {
+                console.log("isPortrait!");
+                popR = true; 
+               // popSize();
+                
+            }
+            if (window.innerHeight < window.innerWidth) {
+                console.log("isLandscape!");
+                popR = false;
+                //popSize();
+            }
+        }
+
+        //var textureone = false;
+      //  var texturetwo = true;
+       
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZm9vbGRvbWUiLCJhIjoiY2pxcHJyb2c1MDBzajQzbzZoM2dlaHRkeiJ9.CDXrbrpZqfi6A5bg5mX9TA';
+
+        var bounds = [
+            [-3.645691, 50.369117], // Southwest coordinates
+            [-3.439216, 50.519757] // Northeast coordinates
+        ];
+
+        var showPTV = true;
+        var Btn1 = document.getElementById('purpleMarkerBTN');
+        Btn1.onclick = function () {
+            if (showPTV) {
+                let markers = document.getElementsByClassName("marker placesToVisitMarker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "hidden";
+                    showPTV = false;
+                }
+            } else {
+                let markers = document.getElementsByClassName("marker placesToVisitMarker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "visible";
+                } showPTV = true;
+            }
+        };
+
+        var showTTD = true;
+        var Btn2 = document.getElementById('greyMarkerBTN');
+        Btn2.onclick = function () {
+            if (showTTD) {
+                let markers = document.getElementsByClassName("marker eventsMarker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "hidden";
+                    showTTD = false;
+                }
+            } else {
+                let markers = document.getElementsByClassName("marker eventsMarker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "visible";
+                } showTTD = true;
+            }
+        };
+
+
+        var showTTE = true;
+        var Btn3 = document.getElementById('orangeMarkerBTN');
+        Btn3.onclick = function () {
+            if (showTTE) {
+                let markers = document.getElementsByClassName("marker placesToEatMarker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "hidden";
+                    showTTE = false;
+                }
+            } else {
+                let markers = document.getElementsByClassName("marker placesToEatMarker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "visible";
+                } showTTE = true;
+            }
+        };
+
+
+        var showRV = true;
+        var Btn4 = document.getElementById('redMarkerBTN');
+        Btn4.onclick = function () {
+            if (showRV) {
+                let markers = document.getElementsByClassName("marker walksMarker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "hidden";
+
+                    map.setLayoutProperty('walk1-akiqwa', 'visibility', 'none');
+                    map.setLayoutProperty('walk2-1nimxe', 'visibility', 'none');
+                    map.setLayoutProperty('walk3-17v8u6', 'visibility', 'none');
+                    map.setLayoutProperty('walk4-ccwitz', 'visibility', 'none');
+                    map.setLayoutProperty('walk5-0zblzq', 'visibility', 'none');
+
+                    walk1bool = false;
+                    walk2bool = false;
+                    walk3bool = false;
+                    walk4bool = false;
+                    walk5bool = false;
+
+                    showRV = false;
+                }
+            } else {
+                let markers = document.getElementsByClassName("marker walksMarker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "visible";         
+                } showRV = true;
+            }
+        };
+
+        var showSV = true;
+        var Btn5 = document.getElementById('greenMarkerBTN');
+        Btn5.onclick = function () {
+            if (showSV) {
+                let markers = document.getElementsByClassName("marker ecoFriendlyMarker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "hidden";
+                    showSV = false;
+                }
+            } else {
+                let markers = document.getElementsByClassName("marker ecoFriendlyMarker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "visible";
+                } showSV = true;
+            }
+        };
+
+
+        var showNV = true;
+        var Btn6 = document.getElementById('blueMarkerBTN');
+        Btn6.onclick = function () {
+            if (showNV) {
+                let markers = document.getElementsByClassName("marker geoAndBioMarker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "hidden";
+                    showNV = false;
+                }
+            } else {
+                let markers = document.getElementsByClassName("marker geoAndBioMarker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "visible";
+                } showNV = true;
+            }
+        };
+
+        var SatBtn = document.getElementById('satellite-v9');
+        SatBtn.onclick = function () {
+            map.setStyle('mapbox://styles/fooldome/cklmysw8j3vo117qoahbpo7k6');
+            setTimeout(900);
+            Boundfunction();
+            mapfunction();
+            layers();
+        }
+        var StrBtn = document.getElementById('streets-v11');
+        StrBtn.onclick = function () {
+            map.setStyle('mapbox://styles/fooldome/cklpjftts0yi817nofmdeengl');
+            setTimeout(900);
+            layers();
+
+        }
+
+        function Boundfunction() {
+            var BoundBtn = document.getElementById('boundary').checked;
+            if (BoundBtn == true) {
+                map.setPaintProperty('newboundary-ax97t5', 'fill-extrusion-opacity', 1);
+            }
+            if (BoundBtn == false) {
+                map.setPaintProperty('newboundary-ax97t5', 'fill-extrusion-opacity', 0);
+            }
+        }
+        function mapfunction() {
+            var mapBtn = document.getElementById('oldmap').checked;
+            if (mapBtn == true) {
+                map.setPaintProperty('fooldome-2pdv6axb', 'raster-opacity', 1);
+                document.getElementById("keyBTN").style.display = "block";
+               
+
+            }
+            if (mapBtn == false) {
+                map.setPaintProperty('fooldome-2pdv6axb', 'raster-opacity', 0);
+                document.getElementById("keyBTN").style.display = "none";
+            }
+        }
+
+        // SHOW GEOMAP KEY ON/ OFF
+
+        var showKG = false;
+        function showKeyGeo() {        
+            if (showKG) {                 
+                document.getElementById("GeoKey").style.display = "none";
+                showKG = false;
+            }else if (!showKG) {                           
+                document.getElementById("GeoKey").style.display = "block";
+                showKG = true; 
+                }            
+        };
+
+
+        //TURN GREYED BG INTO CLOSE OVERLAY BUTTON
+
+        var BGBtn = document.getElementById('overlayed0');
+        BGBtn.onclick = function () {
+            document.getElementById('overlayed1').style.display = "none";
+            document.getElementById('overlayed2').style.display = "none";
+            document.getElementById('overlayed0').style.display = "none";
+        };
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            //style: 'mapbox://styles/chrisboothplymuni/ckae68o100r5f1irtl8cwcemn',
+            // style: 'mapbox://styles/fooldome/ck8pyta001abe1iqykg9d6kkm',
+            style: 'mapbox://styles/fooldome/cklpjftts0yi817nofmdeengl',
+
+            center: [-3.525, 50.428],
+            zoom: 10,
+            pitch: 60,
+            maxBounds: bounds, // Sets bounds as max
+            //pitch: 140,
+            //bearing: 250,
+            antialias: true
+        });
+
+        map.on('load', function () {
+            map.addSource('oldmap-c8d9tq', {
+                'type': 'raster',
+                'url': 'mapbox://fooldome.2pdv6axb'
+            });
+            /* map.addLayer({
+                 'id': 'oldmap-c8d9tq',
+                 'source': 'oldmap-c8d9tq',
+                 'type': 'raster'
+             })
+             map.setPaintProperty('oldmap-c8d9tq', 'raster-opacity', 0);*/
+        });
+
+        map.on('load', function () {
+            map.addSource('newboundary-ax97t5', {
+                'type': 'vector',
+                'url': 'mapbox://fooldome.ctttb3nk'
+            });
+            /*map.addLayer({
+                'id': 'torquayline-11thnt',
+                'type': 'line',
+                'source': 'torquayline-11thnt',
+                'source-layer': 'torquayline-11thnt',
+                'layout': {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                    },
+                'paint': {
+                    'line-color': '#8f0004',
+                    'line-width': 2
+                    }
+            })*/
+
+        });
+
+        layers();
+
+
+        function layers() {
+
+            //WALKS
+
+            map.once('sourcedata', function () {
+                map.addSource('walk1-akiqwa', {
+                    'type': 'vector',
+                    'url': 'mapbox://fooldome.8hp9ewxu'
+                });
+                
+                map.setLayoutProperty('walk1-akiqwa', 'visibility', 'none');
+                map.setPaintProperty('walk1-akiqwa', 'fill-opacity', 1);
+              
+                map.addSource('walk2-1nimxe', {
+                    'type': 'vector',
+                    'url': 'mapbox://fooldome.dyjdwz5v'
+                });
+               
+                map.setLayoutProperty('walk2-1nimxe', 'visibility', 'none');
+                map.setPaintProperty('walk2-1nimxe', 'fill-opacity', 1);
+               
+                map.addSource('walk3-17v8u6', {
+                    'type': 'vector',
+                    'url': 'mapbox://fooldome.5aqxr3fr'
+                });
+                
+                map.setLayoutProperty('walk3-17v8u6', 'visibility', 'none');
+                map.setPaintProperty('walk3-17v8u6', 'fill-opacity', 1);
+                
+                map.addSource('walk4-ccwitz', {
+                    'type': 'vector',
+                    'url': 'mapbox://fooldome.16bwzs0i'
+                });
+                
+                map.setLayoutProperty('walk4-ccwitz', 'visibility', 'none');
+                map.setPaintProperty('walk4-ccwitz', 'fill-opacity', 1);
+              
+                map.addSource('walk5-0zblzq', {
+                    'type': 'vector',
+                    'url': 'mapbox://fooldome.3flgizac'
+                });
+                
+                map.setLayoutProperty('walk5-0zblzq', 'visibility', 'none');
+                map.setPaintProperty('walk5-0zblzq', 'fill-opacity', 1);
+                
+
+                // SEA GRASS
+
+                map.addSource('grass1-cufgcj', {
+                    'type': 'vector',
+                    'url': 'mapbox://fooldome.3qmmdpq1'
+                });
+              
+                map.addLayer({
+                    'id': 'grass1-cufgcj',
+                    'type': 'fill',
+                    'source': 'grass1-cufgcj',
+                    'source-layer': 'grass1-cufgcj',
+                    'layout': { 'visibility': 'none' },
+                    'paint': { 'fill-color': '#0aa30d' }
+                })
+
+          
+                map.addSource('grass2-0wfnt0', {
+                    'type': 'vector',
+                    'url': 'mapbox://fooldome.dso2jc6p'
+                });
+
+                map.addLayer({
+                    'id': 'grass2-0wfnt0',
+                    'type': 'fill',
+                    'source': 'grass2-0wfnt0',
+                    'source-layer': 'grass2-0wfnt0',
+                    'layout': { 'visibility': 'none' },
+                    'paint': { 'fill-color': '#0aa30d' }
+                })
+                
+                map.addSource('grass3-9atkvt', {
+                    'type': 'vector',
+                    'url': 'mapbox://fooldome.2ws012f7'
+                });
+
+
+                map.addLayer({
+                    'id': 'grass3-9atkvt',
+                    'type': 'fill',
+                    'source': 'grass3-9atkvt',
+                    'source-layer': 'grass3-9atkvt',
+                    'layout': { 'visibility': 'none' },
+                    'paint': { 'fill-color': '#0aa30d' }
+                })
+         
+                map.addSource('grass4-5lnw9d', {
+                    'type': 'vector',
+                    'url': 'mapbox://fooldome.39vbqkyx'
+                });
+
+
+                map.addLayer({
+                    'id': 'grass4-5lnw9d',
+                    'type': 'fill',
+                    'source': 'grass4-5lnw9d',
+                    'source-layer': 'grass4-5lnw9d',
+                    'layout': { 'visibility': 'none' },
+                    'paint': { 'fill-color': '#0aa30d' }
+                })
+
+                map.addSource('grass5-26rquz', {
+                    'type': 'vector',
+                    'url': 'mapbox://fooldome.7ve6s9xb'
+                });
+
+
+                map.addLayer({
+                    'id': 'grass5-26rquz',
+                    'type': 'fill',
+                    'source': 'grass5-26rquz',
+                    'source-layer': 'grass5-26rquz',
+                    'layout': { 'visibility': 'none' },
+                    'paint': { 'fill-color': '#0aa30d' }
+                })
+
+
+            })
+        };
+
+        // CHECK NEWSTYLE IS LOADED BEFORE ADDING LAYERS
+        map.on('style.load', function () {
+            const waiting = () => {
+                if (!map.isStyleLoaded()) {
+                    setTimeout(waiting, 200);
+                } else {      
+                    document.getElementById('boundary').checked = false;
+                    document.getElementById('oldmap').checked = false;
+
+                    Boundfunction();
+                    mapfunction();            
+                }
+            };
+            waiting();
+        });
+
+        // WALK VISABILITY FUNCTION
+
+        var walk1bool = false;
+
+        function walk1() {
+
+            if (walk1bool == false) {
+                map.setLayoutProperty('walk1-akiqwa', 'visibility', 'visible');
+                walk1bool = true;
+            } else {
+                map.setLayoutProperty('walk1-akiqwa', 'visibility', 'none');
+                walk1bool = false;
+            }
+        };
+
+        var walk2bool = false;
+
+        function walk2() {
+
+            if (walk2bool == false) {
+                map.setLayoutProperty('walk2-1nimxe', 'visibility', 'visible');
+                walk2bool = true;
+            } else {
+                map.setLayoutProperty('walk2-1nimxe', 'visibility', 'none');
+                walk2bool = false;
+            }
+        };
+
+        var walk3bool = false;
+
+        function walk3() {
+
+            if (walk3bool == false) {
+                map.setLayoutProperty('walk3-17v8u6', 'visibility', 'visible');
+                walk3bool = true;
+            } else {
+                map.setLayoutProperty('walk3-17v8u6', 'visibility', 'none');
+                walk3bool = false;
+            }
+        };
+        var walk4bool = false;
+
+        function walk4() {
+
+            if (walk4bool == false) {
+                map.setLayoutProperty('walk4-ccwitz', 'visibility', 'visible');
+                walk4bool = true;
+            } else {
+                map.setLayoutProperty('walk4-ccwitz', 'visibility', 'none');
+                walk4bool = false;
+            }
+        };
+
+        var walk5bool = false;
+
+        function walk5() {
+
+            if (walk5bool == false) {
+                map.setLayoutProperty('walk5-0zblzq', 'visibility', 'visible');
+                walk5bool = true;
+            } else {
+                map.setLayoutProperty('walk5-0zblzq', 'visibility', 'none');
+                walk5bool = false;
+            }
+        };
+
+        //GRASS
+
+        var grass1bool = false;
+
+        function grass1() {
+
+            if (grass1bool == false) {
+                map.setLayoutProperty('grass1-cufgcj', 'visibility', 'visible');
+                grass1bool = true;
+            } else {
+                map.setLayoutProperty('grass1-cufgcj', 'visibility', 'none');
+                grass1bool = false;
+            }
+        };
+
+        var grass2bool = false;
+
+        function grass2() {
+
+            if (grass2bool == false) {
+                map.setLayoutProperty('grass2-0wfnt0', 'visibility', 'visible');
+                grass2bool = true;
+            } else {
+                map.setLayoutProperty('grass2-0wfnt0', 'visibility', 'none');
+                grass2bool = false;
+            }
+        };
+        var grass3bool = false;
+
+        function grass3() {
+
+            if (grass3bool == false) {
+                map.setLayoutProperty('grass3-9atkvt', 'visibility', 'visible');
+                grass3bool = true;
+            } else {
+                map.setLayoutProperty('grass3-9atkvt', 'visibility', 'none');
+                grass3bool = false;
+            }
+        };
+        var grass4bool = false;
+
+        function grass4() {
+
+            if (grass4bool == false) {
+                map.setLayoutProperty('grass4-5lnw9d', 'visibility', 'visible');
+                grass4bool = true;
+            } else {
+                map.setLayoutProperty('grass4-5lnw9d', 'visibility', 'none');
+                grass4bool = false;
+            }
+        };
+
+        var grass5bool = false;
+
+        function grass5() {
+
+            if (grass5bool == false) {
+                map.setLayoutProperty('grass5-26rquz', 'visibility', 'visible');
+                grass5bool = true;
+            } else {
+                map.setLayoutProperty('grass5-26rquz', 'visibility', 'none');
+                grass5bool = false;
+            }
+        };
+
+        // INTRO TUTORIAL SLIDES CONTROL
+
+         function introClose(){
+             document.getElementById('Intro').style.display = 'none';
+              document.getElementById('introBG').style.display = "none";
+        }
+
+        var introIndex = 1;
+        showIntro(introIndex);
+
+        function plusIntro(n) {
+            showIntro(introIndex += n);
+        }
+
+        function currentIntro(n) {
+            showIntro(introIndex = n);
+        }
+
+        function showIntro(n) {
+  var i;
+  var slides = document.getElementsByClassName("innerContainer");
+  //var circles = document.getElementsByClassName("dots");
+  if (n > slides.length) {introIndex = 1}
+  if (n < 1) {introIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  //for (i = 0; i < circles.length; i++) {
+    // circles[i].className = circles[i].className.replace(" enable", "");
+  //}
+  slides[introIndex-1].style.display = "block";
+  //circles[introIndex-1].className += " enable";
+} 
+
+        // POPUP IMAGE SLIDESHOW CONTROL
+
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = []            
+             slides[0] = document.getElementById("ContentB");
+
+            if ($('#ContentC').html() == '') {            
+            } else {
+                slides[1] = document.getElementById("ContentC");
+            }
+
+            if ($('#ContentD').html() == '') {
+            } else {
+                slides[2] = document.getElementById("ContentD");
+            }
+
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }  
+
+
+        
+       
+
+
+        //PINPOINT SETUP
+
+        fetch('api/getPinPoints').then((res) => {
+            return res.json();
+        }).then((data) => {
+            data.forEach((pin) => {
+
+
+                // CHECK FOR EACH DATA INPUT FROM SPECIFIC PINs FORM
+
+                var nameCheck = "";
+                nameCheck = "<span class='pinHeading'>" + pin.name + "</span><br/>";
+
+                /*  
+                  var videoCheck = "";
+                     if (pin.videoLink) {
+                          videoCheck = "<iframe id='vidF' width='220' height='160' src='" + pin.videoLink + "'frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe><br>";
+                     } else if (!pin.videoLink) {
+                         videoCheck = "";
+                    };    
+               */
+
+                var imageCheck = "";
+
+                if (pin.showLarge) {
+
+                    if (pin.imageName) {
+                       // imageCheck = "<a id='overlayBUTTON' onclick='ShowOverlay()'><img src='img/photos/" + pin.imageName + "' class='imgAptPOLL'></a><br/>";
+                        imageCheck = "<a id='overlayBUTTON' onclick='ShowOverlay()'><img src='img/photos/" + pin.imageName + "' style='width:220px;height:200px;object-fit:cover;object-position:50%100%;'></a><br/>";
+                    } else if (!pin.imageName) {
+                        imageCheck = "";
+                    };
+
+                } else if (!pin.showLarge) {
+
+                    if (pin.imageName) {
+                        imageCheck = "<img src='img/photos/" + pin.imageName + "' style='width:220px;height:200px;object-fit:cover;object-position:50%100%;'><br/>";
+                    } else if (!pin.imageName) {
+                        imageCheck = "";
+                    };
+                };
+
+                var opentimes = "";
+                if (pin.openingTimes) {
+                    opentimes = "<span class='pintime'>" + pin.openingTimes + "<br/>";
+                } else if (!pin.openingTimes) {
+                    opentimes = "";
+                };
+
+                var parkingCheck = "";
+                if (pin.parking) {
+                    parkingCheck = "<i class='fas fa-parking' aria-hidden='true' style='font-size:24px'></i>";
+                } else if (!pin.parking) {
+                    parkingCheck = "";
+                };
+
+                var toiletCheck = "";
+                if (pin.toilets) {
+                    toiletCheck = "<i class='fas fa-toilet' aria-hidden='true' style='font-size:24px'></i>";
+                } else if (!pin.toilets) {
+                    toiletCheck = "";
+                };
+
+                var wheelchairCheck = "";
+                if (pin.wheelChairAccess) {
+                    wheelchairCheck = "<i class='fas fa-wheelchair' aria-hidden='true'style='font-size:24px'></i>";
+                } else if (!pin.wheelChairAccess) {
+                    wheelchairCheck = "";
+                };
+
+                var foodCheck = "";
+                if (pin.food) {
+                    foodCheck = "<i class='fas fa-utensils' aria-hidden='true' style='font-size:24px'></i>";
+                } else if (!pin.food) {
+                    foodCheck = "";
+                };
+
+                var dogCheck = "";
+                if (pin.dogFriendly) {
+                    dogCheck = "<i class='fas fa-dog' aria-hidden='true' style='font-size:24px'></i>";
+                } else if (!pin.dogFriendly) {
+                    dogCheck = "";
+                };
+
+                var linkCheck = "";
+                if (pin.link) {
+                    linkCheck = "<br/><a href ='" + pin.link + "' target='_blank'>Website</a><br/>";
+                } else if (!pin.link) {
+                    linkCheck = "";
+                };
+
+                // OVERLAY CONTENT FROM CLICKING POPUP IMAGE
+
+                var nameCheckB = "";
+                nameCheckB = "<span class='fontHeading'>" + pin.name + "</span><br/>";
+
+                var videoCheckB = "";
+                if (pin.videoLink) {
+                    videoCheckB = "<div class='mySlides fade'><iframe id='vidF' width='720' height='480' src='" + pin.videoLink + "'frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe><div>";
+                } else if (!pin.videoLink) {
+                    videoCheckB = "";
+                };
+
+
+                var imageCheckB = "";
+                if (pin.imageName) {
+                    imageCheckB = "<img src='img/photos/" + pin.imageName + "' class='imgApt'>";
+                } else if (!pin.imageName) {
+                    imageCheckB = "";
+                };
+
+                var imageCheckC = "";
+                if (pin.imageName2) {
+                    imageCheckC = "<img src='img/photos/" + pin.imageName2 + "' class='imgApt'>";
+                } else if (!pin.imageName2) {
+                    imageCheckC = "";
+                };
+
+                var imageCheckD = "";
+                if (pin.imageName3) {
+                    imageCheckD = "<img src='img/photos/" + pin.imageName3 + "' class='imgApt'>";
+                } else if (!pin.imageName3) {
+                    imageCheckD = "";
+                };
+
+                var opentimeB = "";
+                if (pin.openingTimes) {
+                    opentimeB = "<span class='pintime'>" + pin.openingTimes + "<br/>";
+                } else if (!pin.openingTimes) {
+                    opentimeB = "";
+                };
+
+                var SDescription = "";
+                if (pin.shortDescription) {
+                    SDescription = "<span class='fontBody'>" + pin.shortDescription + "</span><br/><br/>";
+                } else if (!pin.shortDescription) {
+                    SDescription = "";
+                };
+
+                var street = "";
+                if (pin.streetAddress) {
+                    street = "<span class='fontBody'>" + pin.streetAddress + "<br/>";
+                } else if (!pin.streetAddress) {
+                    street = "";
+                };
+
+                var pc = "";
+                if (pin.postcode) {
+                    pc = "<span class='fontBody'>" + pin.postcode + "<br/>";
+                } else if (!pin.postcode) {
+                    pc = "";
+                };
+
+                var town = "";
+                if (pin.streetAddress) {
+                    town = "<span class='fontBody'>" + pin.cityTown + "<br/>";
+                } else if (!pin.cityTown) {
+                    town = "";
+                };
+
+                var phone = "";
+                if (pin.phone) {
+                    phone = "<span class='fontBody'>" + pin.phone + "<br/>";
+                } else if (!pin.phone) {
+                    phone = "";
+                };
+
+                // SETUP FOR OVERLAY
+
+                MarkerContainer = document.createElement('div');
+                MarkerContainer.className = `marker ${pin.category}Marker`;
+
+
+                MarkerContainer.addEventListener('click', function () {
+
+                    // SLIDESHOW 3 IMAGES or 2 IMAGES 1 VIDEO
+
+
+                    if (pin.imageName) {
+                        document.getElementById('ContentB').innerHTML = imageCheckB
+                    }
+
+                    if (pin.imageName2) {
+                        document.getElementById('ContentC').innerHTML = imageCheckC
+                    } else {
+                        document.getElementById('ContentC').innerHTML = ""
+                    }
+
+                    if (pin.imageName3) {
+                        document.getElementById('ContentD').innerHTML = imageCheckD
+                    } else {
+                        document.getElementById('ContentD').innerHTML = ""
+                    }
+
+                    if (pin.videoLink) {
+                         document.getElementById('ContentD').innerHTML = videoCheckB
+                     } else {
+                        document.getElementById('ContentD').innerHTML = ""
+                    }
+
+                    document.getElementById('Content2').innerHTML =
+                        nameCheckB +
+                        opentimes + "</br>" +
+                        SDescription +
+                        street + town + pc + phone + "</br>" +
+                        parkingCheck + " " +
+                        toiletCheck + " " +
+                        wheelchairCheck + " " +
+                        foodCheck + " " +
+                        dogCheck + " " +
+                        linkCheck
+
+                });
+
+                // CLICKABLE SEA GRASS PINS
+
+                MarkerContainer.addEventListener('click', function () {
+                    if (pin.name == "Sea Grass - Elberry Cove") {
+                        grass1();
+                    }
+                });
+
+                MarkerContainer.addEventListener('click', function () {
+                    if (pin.name == "Sea Grass - Fishcombe Cove") {
+                        grass2();
+                    }
+                });
+                MarkerContainer.addEventListener('click', function () {
+                    if (pin.name == "Sea Grass - Breakwater Beach") {
+                        grass3();
+                    }
+                });
+                MarkerContainer.addEventListener('click', function () {
+                    if (pin.name == "Sea Grass - Torre Abbey Sands") {
+                        grass4();
+                    }
+                });
+                MarkerContainer.addEventListener('click', function () {
+                    if (pin.name == "Sea Grass - Millstones Bay") {
+                        grass5();
+                    }
+                });
+
+                // MARKER POPUP CREATION (WITH ROTATION CSS CHANGE)
+
+                //content.push(MarkerContainer);
+                
+                new mapboxgl.Marker(MarkerContainer)
+                    .setLngLat([pin.latitude, pin.longitude])
+                    .setPopup(new mapboxgl.Popup({ 'offset': 25 })
+                        .setHTML(`<div class="popupContent" >
+                                                ${imageCheck}
+                                                ${nameCheck}
+                                                ${opentimes}
+                                                ${linkCheck} </br>
+                                                ${parkingCheck}
+                                                ${toiletCheck}
+                                                ${wheelchairCheck}
+                                                ${foodCheck}
+                                                ${dogCheck}
+                                               </div>`))                       
+                    
+                    .addTo(map);
+            })          
+         
+        });
+        
+
+
+        // <button id='overlayBTN' onclick='ShowOverlay()' style='float: right;'><i class='fas fa-expand-alt' aria-hidden='true' style='font-size:24px'></i><button>
+
+        //EVENTS POPUP
+
+        fetch('api/getEvents').then((res) => {
+            return res.json();
+        }).then((data) => {
+            data.forEach((pin) => {
+
+                var nameCheck = "";
+                nameCheck = "<span class='pinHeading'>" + pin.name + "</span><br/>";
+
+                var videoCheck = "";
+                if (pin.videoLink) {
+                    videoCheck = "<iframe id='vidF' width='220' height='160' src='" + pin.videoLink + "'frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe><br>";
+                } else if (!pin.videoLink) {
+                    videoCheck = "";
+                };
+
+                var imageCheck = "";
+                if (pin.imageName) {
+                    imageCheck = "<img src='img/photos/" + pin.imageName + "' style='width:220px;height:200px;'><br/>";
+
+                } else if (!pin.imageName) {
+                    imageCheck = "";
+                };
+
+                var opentimes = "";
+                if (pin.showOpeningTimes) {
+                    opentimes = pin.openingTimes + "<br/>"
+                } else if (!pin.showOpeningTimes) {
+                    opentimes = "";
+                };
+
+                var parkingCheck = "";
+                if (pin.parking) {
+                    parkingCheck = "<i class='fas fa-parking' aria-hidden='true' style='font-size:24px'></i>";
+                } else if (!pin.parking) {
+                    parkingCheck = "";
+                };
+
+                var toiletCheck = "";
+                if (pin.toilets) {
+                    toiletCheck = "<i class='fas fa-toilet' aria-hidden='true' style='font-size:24px'></i>";
+                } else if (!pin.toilets) {
+                    toiletCheck = "";
+                };
+
+                var wheelchairCheck = "";
+                if (pin.wheelChairAccess) {
+                    wheelchairCheck = "<i class='fas fa-wheelchair' aria-hidden='true'style='font-size:24px'></i>";
+                } else if (!pin.wheelChairAccess) {
+                    wheelchairCheck = "";
+                };
+
+                var foodCheck = "";
+                if (pin.food) {
+                    foodCheck = "<i class='fas fa-utensils' aria-hidden='true' style='font-size:24px'></i>";
+                } else if (!pin.food) {
+                    foodCheck = "";
+                };
+
+                var dogCheck = "";
+                if (pin.dogFriendly) {
+                    dogCheck = "<i class='fas fa-dog' aria-hidden='true' style='font-size:24px'></i>";
+                } else if (!pin.dogFriendly) {
+                    dogCheck = "";
+                };
+
+                var linkCheck = "";
+                if (pin.link) {
+                    linkCheck = "<a href ='" + pin.link + "' target='_blank'>Website</a><br/>";
+                } else if (!pin.link) {
+                    linkCheck = "";
+                };
+
+                var SDate = "";
+                if (pin.startDate) {
+                    SDate = "<span class='fontBody'>" + pin.startDate + "</span> - ";
+                } else if (!pin.startDate) {
+                    SDate = "";
+                };
+
+                var EDate = "";
+                if (pin.endDate) {
+                    EDate = "<span class='fontBody'>" + pin.endDate + "</span><br/>";
+                } else if (!pin.endDate) {
+                    EDate = "";
+                };
+
+                //OVERLAY CONTENT
+
+                var nameCheckB = "";
+                nameCheckB = "<span class='fontHeading'>" + pin.name + "</span><br/>";
+
+                var videoCheckB = "";
+                if (pin.videoLink) {
+                    videoCheckB = "<iframe id='vidF' width='720' height='480' src='" + pin.videoLink + "'frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe><br>";
+                } else if (!pin.videoLink) {
+                    videoCheckB = "";
+                };
+
+                var imageCheckB = "";
+                if (pin.imageName) {
+                    imageCheckB = "<img src='img/photos/" + pin.imageName + "' class='imgApt'><br/>";
+                } else if (!pin.imageName) {
+                    imageCheckB = "";
+                };
+
+                var SDescription = "";
+                if (pin.shortDescription) {
+                    SDescription = "<span class='fontBody'>" + pin.shortDescription + "</span><br/>";
+                } else if (!pin.shortDescription) {
+                    SDescription = "";
+                };
+
+                MarkerContainer = document.createElement('div');
+                MarkerContainer.className = `marker ${pin.category}Marker`;
+
+                MarkerContainer.addEventListener('click', function () {
+                    document.getElementById('Content1').innerHTML =
+                        videoCheckB +
+                        imageCheckB
+
+
+                    document.getElementById('Content2').innerHTML =
+                        nameCheckB +
+                        opentimes +
+                        SDate + EDate +
+                        SDescription +
+                        parkingCheck + " " +
+                        toiletCheck + " " +
+                        wheelchairCheck + " " +
+                        foodCheck + " " +
+                        dogCheck + " " +
+                        linkCheck
+                });
+
+                new mapboxgl.Marker(MarkerContainer)
+                    .setLngLat([pin.latitude, pin.longitude])
+                    .setPopup(new mapboxgl.Popup({ offset: 25 })
+                        .setHTML(`<div class="popupContent">
+                                                ${videoCheck}
+                                                ${imageCheck}
+                                                ${nameCheck}
+                                                ${SDate}
+                                                 ${EDate}
+                                                ${opentimes}
+                                                ${linkCheck} </br>
+                                                ${parkingCheck}
+                                                ${toiletCheck}
+                                                ${wheelchairCheck}
+                                                ${foodCheck}
+                                                ${dogCheck}
+
+</div>`))
+
+                    .addTo(map);
+
+            })
+        });
+
+
+        //ROUTES POPUP
+
+        fetch('api/getRoutes').then((res) => {
+            return res.json();
+        }).then((data) => {
+            data.forEach((pin) => {
+
+                var nameCheck = "";
+                nameCheck = "<span class='pinHeading'>" + pin.name + "</span><br/>";
+
+                var SDescription = "";
+                if (pin.shortDescription) {
+                    SDescription = "<span class='fontBody'>" + pin.shortDescription + "</span><br/>";
+                } else if (!pin.shortDescription) {
+                    SDescription = "";
+                };
+
+                MarkerContainer = document.createElement('div');
+                MarkerContainer.className = `marker ${pin.category}Marker`;
+
+                MarkerContainer.addEventListener('click', function () {
+                    if (pin.name == "Walk 1 - Babbacombe") {
+                        walk1();
+                    }
+                });
+                MarkerContainer.addEventListener('click', function () {
+                    if (pin.name == "Walk 2 - Bishop's Walk") {
+                        walk2();
+                    }
+                });
+
+                MarkerContainer.addEventListener('click', function () {
+                    if (pin.name == "Walk 3 - Torquay to Brixham Habour") {
+                        walk3();
+                    }
+                });
+
+                MarkerContainer.addEventListener('click', function () {
+                    if (pin.name == "Walk 4 - Cockington") {
+                        walk4();
+                    }
+                });
+
+                MarkerContainer.addEventListener('click', function () {
+                    if (pin.name == "Walk 5 - Berry Head") {
+                        walk5();
+                    }
+                });
+
+
+                new mapboxgl.Marker(MarkerContainer)
+                    .setLngLat([pin.latitude, pin.longitude])
+                    .setPopup(new mapboxgl.Popup({ offset: 25 })
+                        .setHTML(`<div class="popupContent">
+                                                ${nameCheck} ${SDescription} </div>`))
+
+                    .addTo(map);
+
+            })
+
+        });
+
+        function ShowOverlay() {
+            document.getElementById('overlayed1').style.display = "block";
+            document.getElementById('overlayed2').style.display = "block";
+            document.getElementById('overlayed0').style.display = "block";
+            const popup = document.getElementsByClassName('mapboxgl-popup');
+            popup[0].remove();
+        };  
+
+        /*
+        var Rclass = "mapboxgl-popup";
+        
+        function popSize() {
+            if (popR) {
+            Rclass = "mapboxgl-popup";
+            console.log("pop1Layout");
+          
+        } else if (!popR) {
+            Rclass = "mapboxgl-popup2";
+                console.log("pop2Layout");
+                for (let i = 0; i < content.length; i++) {
+                    //content[i].className = Rclass;
+                }
+        }
+          //console.log(content.length);
+        }
+        */
+
+    </script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

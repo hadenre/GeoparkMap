@@ -1,0 +1,601 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'OSreg';
+    src: url(opensans-bold.ttf) format('truetype');   
+}
+
+@font-face {
+    font-family: 'OSbold';
+    src: url(opensans-regular.ttf) format('truetype');
+}
+
+
+
+.container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.w-100{
+    width: 100vw;
+}
+
+/* TEST BLOCK
+.lilButt {
+    position:relative;
+    background-color: brown;
+    height:50px;
+    width:50px;
+    left:0px;
+    bottom:-95%;
+    z-index:100;
+}*/
+
+#overlayBTN {
+    padding: 5px 5px;
+    font-size: 115%;
+    background-color: grey;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    color: #fff;
+}
+
+#menuBTN{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+    padding: 10px 20px;
+    font-size: 115%;
+    background-color: transparent;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    color: #fff;
+}
+
+#menuBTN:hover{
+    background-color: #fff;
+    color: #ee9922;
+    border-color: #ee9922;
+    cursor: pointer;
+}
+
+#keyBTN {
+    position: absolute;
+    top: 80px;
+    left: 10px;
+    float:right;
+    z-index: 100;
+    padding: 10px 20px;
+    font-size: 115%;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    color: #fff;
+    display: none;
+}
+#keyBTN:hover {
+    background-color: #fff;
+    color: #ee9922;
+    border-color: #ee9922;
+    cursor: pointer;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.menu {
+    position: absolute;
+    left: 0;
+    top: 70%;
+    width: 100vw;
+    height: 30%;
+    background-color: #fff;
+   
+    border-top: 5px solid #ee9922;
+    transition: bottom 1.5s ease-in-out;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.menu-closed{
+    top:-30%;
+    transition: bottom 1.5s ease-in-out;
+}
+
+.marker{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.marker.placesToVisitMarker{
+    background-size: contain;
+    background-image: url('../img/markers/placesToVisitMarker.png');
+}
+
+.marker.placesToEatMarker {
+        background-size: contain;
+        background-image: url('../img/markers/placesToEatMarker.png');
+    }
+    .marker.walksMarker {
+        background-size: contain;
+        background-image: url('../img/markers/walksMarker.png');
+    }
+    .marker.ecoFriendlyMarker {
+        background-size: contain;
+        background-image: url('../img/markers/recyclingMarker.png');
+    }
+
+    .marker.geoAndBioMarker {
+        background-size: contain;
+        background-image: url('../img/markers/natureViewMarker.png');
+    }
+
+    .marker.eventsMarker {
+        background-size: contain;
+        background-image: url('../img/markers/eventsMarker.png');
+    }
+
+    .marker.agathaMarker {
+        background-size: contain;
+        background-image: url('../img/markers/agathaMarker.png');
+    }
+
+.mapboxgl-popup {
+    width:300px;
+    z-index:105;    
+  }
+
+.mapboxgl-popup2 {
+    width: 40%;
+    height: 30%;
+    z-index: 105;
+}
+
+.mapboxgl-popup-content {
+    text-align: center;
+    font-family: OSreg;
+    border: 1px solid #ee9922;
+    padding: 10px;
+    width: 100%;
+}
+
+.hideMarker{
+    display: none;
+}
+
+.keyContainer{
+    width: 100%;
+    padding-top: 10px;
+    margin: 0 auto;
+    display: inline-flex;
+   justify-content: center;
+   flex-wrap:nowrap;
+    align-items: center;
+}
+
+
+
+.markerBTN {
+    display: inline-table;
+    width: 13vmax;
+    height: 7vmax;
+    padding: 5px 5px;
+    background-color: grey;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    color: #fff;
+    z-index: 3;
+    margin: 0 auto;
+    text-align: center;
+    font-family: OSreg;
+    font-size: 1vmax;
+}
+
+
+
+
+.markerBTN:hover {
+    cursor: pointer;
+}
+
+#blueMarkerBTN {
+    background-color: #3F88C5;
+}
+
+#redMarkerBTN {
+    background-color:#9B2915;
+}
+
+#greenMarkerBTN {
+    background-color: #7DC95E;
+}
+
+#purpleMarkerBTN {
+    background-color: #63326E;
+}
+
+#orangeMarkerBTN {
+    background-color: #FC7A1E;
+}
+
+#greyMarkerBTN {
+    background-color: #B9A394;
+}
+
+#yellowMarkerBTN {
+    background-color: #FFBA01;
+}
+
+#BoundBTN {
+    background-color: #3E8B94;
+}
+
+/*  SQUARED RADIO MENU BUTTONS */
+
+input[type="radio"] {
+    display: none;
+}
+input[type="checkbox"] {
+    display: none;
+}
+
+.radio-toolbar {
+    position:relative;
+    margin: 1px;
+    z-index:2;
+    display: inline-grid;
+    width: 15vmax;
+    height: 6vmax;
+}
+
+    .radio-toolbar input[type="radio"] {
+        opacity: 0;
+        position: relative;
+        width: 0;
+    }
+
+    .radio-toolbar label {       
+        background-color: #3E8B94;
+        padding: 10%;
+        text-align:center;
+        font-family: OSreg;
+        font-size: 1.5vmax;
+        color: #fff;
+        width: 100%;
+        height:auto;
+       
+       
+    }
+
+        .radio-toolbar label:hover {
+            background-color: #70aeb9;
+        }
+
+
+
+    .radio-toolbar input[type="radio"]:checked + label {
+        background-color: #9cb73c;
+    }
+
+    .radio-toolbar input[type="checkbox"]:checked + label {
+        background-color: #9cb73c;
+    }
+
+
+/*  DETAILED POP UP INFO OVERLAY*/
+
+.GkeyContainer {
+    position: absolute;
+    width: 25%;
+    height: 45%;
+    max-width: 20vw;
+    max-height: 45vh;
+    top: 20%;
+    left: 2%;
+    display: inline-block;
+    z-index: 20;
+    background-color: rgba(255, 255, 255, 0.6);
+    vertical-align: middle;
+    display:none;
+    
+}
+.keyText {
+    vertical-align: middle;
+    font-size: 1vmin;
+    font-family: Roboto;
+    color: #000000;
+    line-height: 130%;
+    display: inline-block;
+}
+
+.keyImg {
+    width: 12%;
+    height: 12%;
+    margin: 10px;
+    vertical-align:middle;
+}
+
+.introContainer {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    max-width: 80vw;
+    max-height: 80vh;
+    top: 10%;
+    left: 10%;
+    object-fit: contain;
+    z-index: 10;
+    
+}
+
+.introImage {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 50%;
+    max-width: 80vw;
+    max-height: 80vh;
+    object-fit: contain;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.introX {
+    position: relative;
+    cursor: pointer;
+    float: right;
+    font-size: 125%;
+    color: white;
+    padding: 10px 20px;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    user-select: none;
+    z-index: 11;
+    object-fit: contain;
+}
+
+.introX:hover {
+    background-color: #fff;
+    color: #ee9922;
+    border-color: #ee9922;
+    cursor: pointer;
+}
+
+.MessageInfo {
+    position: relative;
+    font-weight: bold;
+    font-size: 150%;
+    font-family: Roboto;
+    color: white;
+    object-fit: contain; 
+    z-index: 10;
+}
+
+.introBG {
+    position: fixed;
+    background: #000000;
+    opacity: 0.7;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    display: block;
+    overflow: hidden;
+}
+
+.overlayBUTTON {
+    background: transparent;
+    border: none !important;
+    font-size: 0;
+    border-radius: 0px;
+    padding: 0px;
+}
+
+/*  big picture */
+.overlay1 {
+    position: relative;
+    display: none;
+    width: 50%; 
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    bottom: 10%;
+    background-color: rgba(255, 255, 255, 0.3);
+    z-index: 4; 
+    cursor: pointer;
+    /*pointer-events: none;*/
+    display:none;
+}
+.mySlides {
+    display: none;
+}
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 80%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 5vmax;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    z-index: 11;
+}
+
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover, .next:hover {
+        background-color: rgba(0,0,0,0.8);
+    }
+/* Fading animation */
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+/* description */
+.overlay2 {
+    position: absolute; 
+    display: none;
+    width: 28%; 
+    height: 80%; 
+    top: 10%;
+    right: 10%;
+    background-color: #d7d7d7;
+    z-index: 4; 
+    cursor: pointer; 
+    overflow: auto;
+    /*overflow-y: scroll;*/
+}
+.overlay-content {
+    position: relative;
+    top: 10px; 
+    left: 10px;
+    text-align: center;
+    display: block;
+    line-height: 1;
+    width: 100%;
+    
+}
+.overlay_a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    font-family: OSreg;
+    color: #000000;
+    display: block; 
+    transition: 0.3s;
+    text-align: center;
+}
+
+.overlayBG {
+    position: fixed;
+    background: #000000;
+    opacity: 0.7;
+    width: 100%;
+    height: 100%;
+    z-index: 3;   
+    display: none;
+}
+
+
+.pinHeading {
+    font-size: 200%;
+    font-family: Roboto;
+    color: #000000;
+}
+
+.pintime {
+    font-size: 150%;
+    font-family: Roboto;
+    color: #000000;
+}
+
+.fontHeading {
+    /*font-size: 1rem;*/
+    font-size: 4vmin;
+    text-align: center;
+    font-family: Roboto;
+    color: #000000;
+}
+
+.fontTime {
+    font-size: 3vmin;
+    font-family: OSbold;
+    line-height: 0.5;
+    color: #000000;
+}
+
+.fontBody {
+    font-size: 2vmin;
+    font-family: OSbold;
+    line-height: 0.5;
+    color: #000000;
+}
+
+.imgApt {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 50%;
+    max-width: 50vw;
+    max-height: 80vh;
+    object-fit: contain;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.imgAptPOLL {
+    position: relative;
+    width: 100%;
+    height: auto;
+    object-position: 50%100%;
+    object-fit: cover;
+}
+
+.KeyGeo {
+    position: absolute;
+    width: 90%;
+    height: auto;
+    top: 10%;
+    left: 5%;
+    max-width: 90vw;
+    object-fit: contain;
+    z-index: 1;
+    display: none;
+}
+
+
+@media only screen and (max-width: 1000px) {
+    .container{
+        height: 700px;
+    }
+}
