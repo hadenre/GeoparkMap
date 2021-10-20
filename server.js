@@ -23,7 +23,9 @@ var mongoURI = process.env.mongoURI;
 
 //App settings for public files and json formatting
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({extended: true})); 
 //app.use(cors(corsOptions));
 app.use(express.static('www'));
 
