@@ -45,7 +45,7 @@ app.engine('hbs', handlebars({
 require('./middleware/passport')(passport);
 app.use(
     session({
-        secret: process.env.SESSIONSECRET,
+        secret: process.env.secret,
         resave: true,
         saveUninitialized: true,
         cookie: { maxAge: 6000000 }
