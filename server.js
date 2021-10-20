@@ -18,8 +18,7 @@ dotenv.config();
 //Port Number and Connection String to DB
 var port = process.env.PORT;
 //var mongoURI = process.env.mongoURI;
-var mongoURI = "mongodb+srv://lchristison:<maryjane666>@geoparkdb.pfw20.mongodb.net/geoparkDB?retryWrites=true&w=majority";
-//const client = new mongoose(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
 //var port = process.env.PORT || 3000;
 //var mongoURI = process.env.mongoURI || 'mongodb://localhost:27017/geopark';
 
