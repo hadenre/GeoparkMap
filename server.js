@@ -15,7 +15,7 @@ var mongoose = require('mongoose');
 var dotenv = require('dotenv');
 dotenv.config();
 
-const uri = "mongodb+srv://lchristison:maryjane666@geoparkdb.pfw20.mongodb.net/geoparkDB?retryWrites=true&w=majority";
+const uri = "mongodb+srv://lchristison:maryjane666@geoparkdb.pfw20.mongodb.net/geoparkdb?retryWrites=true&w=majority";
 //const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 //Port Number and Connection String to DB
 var port = process.env.PORT;
