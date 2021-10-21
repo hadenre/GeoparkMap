@@ -19,7 +19,7 @@ const uri = "mongodb+srv://lchristison:<maryjane666>@geoparkdb.pfw20.mongodb.net
 //const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 //Port Number and Connection String to DB
 var port = process.env.PORT;
-var mongoURI = process.env.mongoURI || uri;
+var mongoURI = process.env.uri;
 
 //var port = process.env.PORT || 3000;
 //var mongoURI = process.env.mongoURI || 'mongodb://localhost:27017/geopark';
