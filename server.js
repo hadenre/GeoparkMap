@@ -17,7 +17,7 @@ dotenv.config();
 
 
 const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://lchristison:<password>@geoparkdb.pfw20.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = "mongodb+srv://lchristison:maryjane666@geoparkdb.pfw20.mongodb.net/geoparkDB?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const collection = client.db("test").collection("devices");
