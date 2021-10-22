@@ -5,13 +5,16 @@ var bodyParser = require('body-parser');
 var handlebars = require('express-handlebars');
 var passport = require('passport');
 var session = require('express-session');
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
+var mongoose = require('mongodb').MongoClient;
+
 //const { mongoose } = require('mongodb');
 // var cors = require('cors');
 // var corsOptions = {
 //     origin: 'http://localhost:3000',
 //     optionsSuccessStatus: 204 // some legacy browsers (IE11, various SmartTVs) choke on 204
 // }
+
 var dotenv = require('dotenv');
 dotenv.config();
 
@@ -61,6 +64,15 @@ app.use('/api', require('./routes/api'));
 
 //Initialise DB Conenction
 
+MongoClient.connect(mongoURI, function(err, client) {
+  const collection = client.db("geoparkDB");
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  // perform actions on the collection object
+  client.close();
+});
+
+/*
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -70,8 +82,7 @@ mongoose.connect(mongoURI, {
     .catch((err) => {
         console.log('Not connected to the DB with err: ' + err);
     });
-
-
+*/
 //Initialise HTTP server
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
