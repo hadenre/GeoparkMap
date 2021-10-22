@@ -25,7 +25,7 @@ var mongoURI = process.env.MONGO_URI;
 //var mongoURI = process.env.mongoURI || 'mongodb://localhost:27017/geopark';
 
 //App settings for public files and json formatting
-app.use(bodyParser.json())
+//app.use(bodyParser.json())
 //app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); 
@@ -48,7 +48,7 @@ app.engine('hbs', handlebars({
 require('./middleware/passport')(passport);
 app.use(
     session({
-        secret: process.env.secret,
+        secret: process.env.SESSIONSECRET,
         resave: true,
         saveUninitialized: true,
         cookie: { maxAge: 6000000 }
