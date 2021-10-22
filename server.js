@@ -6,7 +6,7 @@ var handlebars = require('express-handlebars');
 var passport = require('passport');
 var session = require('express-session');
 //var mongoose = require('mongoose');
-var mongoose = require('mongodb').MongoClient;
+var mongoose = require('mongodb').mongoose;
 
 //const { mongoose } = require('mongodb');
 // var cors = require('cors');
@@ -64,7 +64,7 @@ app.use('/api', require('./routes/api'));
 
 //Initialise DB Conenction
 
-MongoClient.connect(mongoURI, { 
+mongoose.connect(mongoURI, { 
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
