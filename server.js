@@ -5,8 +5,8 @@ var bodyParser = require('body-parser');
 var handlebars = require('express-handlebars');
 var passport = require('passport');
 var session = require('express-session');
-//var mongoose = require('mongoose');
-var mongoose = require('mongodb').mongoose;
+var mongoose = require('mongoose');
+//var mongoose = require('mongodb').mongoose;
 
 //const { mongoose } = require('mongodb');
 // var cors = require('cors');
@@ -64,19 +64,6 @@ app.use('/api', require('./routes/api'));
 
 //Initialise DB Conenction
 
-mongoose.connect(mongoURI, { 
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log('Connected to the DB');
-})
-    .catch((err) => {
-        console.log('Not connected to the DB with err: ' + err);
-    });
- 
-});
-
-/*
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -86,7 +73,7 @@ mongoose.connect(mongoURI, {
     .catch((err) => {
         console.log('Not connected to the DB with err: ' + err);
     });
-*/
+
 //Initialise HTTP server
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
