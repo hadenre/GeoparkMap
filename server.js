@@ -17,7 +17,7 @@ dotenv.config();
 
 
 //const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://lchristison:maryjane666@geoparkdb.pfw20.mongodb.net/pinpoints?retryWrites=true&w=majority";
+//const uri = "mongodb+srv://lchristison:maryjane666@geoparkdb.pfw20.mongodb.net/pinpoints?retryWrites=true&w=majority";
 //const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 //client.connect(err => {
  // const collection = client.db("test").collection("devices");
@@ -32,7 +32,7 @@ const uri = "mongodb+srv://lchristison:maryjane666@geoparkdb.pfw20.mongodb.net/p
 //const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 //Port Number and Connection String to DB
 var port = process.env.PORT;
-var mongoURI = process.env.uri;
+var mongoURI = process.env.MONGO_URI;
 
 //var port = process.env.PORT || 3000;
 //var mongoURI = process.env.mongoURI || 'mongodb://localhost:27017/geopark';
