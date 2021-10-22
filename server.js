@@ -15,15 +15,17 @@ var mongoose = require('mongoose');
 var dotenv = require('dotenv');
 dotenv.config();
 
+var port = process.env.PORT;
+var mongoURI = process.env.MONGO_URI;
 
 //const { MongoClient } = require('mongodb');
 //const uri = "mongodb+srv://lchristison:maryjane666@geoparkdb.pfw20.mongodb.net/pinpoints?retryWrites=true&w=majority";
-//const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-//client.connect(err => {
- // const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
- // client.close();
-//});
+const client = new mongoose(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+  const collection = client.db("geoparkDB").collection("pinpoints");
+   //perform actions on the collection object
+  client.close();
+});
 
 
 
@@ -31,8 +33,7 @@ dotenv.config();
 //const uri = "mongodb+srv://lchristison:maryjane666@geoparkdb.pfw20.mongodb.net/geoparkdb?retryWrites=true&w=majority";
 //const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 //Port Number and Connection String to DB
-var port = process.env.PORT;
-var mongoURI = process.env.MONGO_URI;
+
 
 //var port = process.env.PORT || 3000;
 //var mongoURI = process.env.mongoURI || 'mongodb://localhost:27017/geopark';
