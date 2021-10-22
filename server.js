@@ -64,12 +64,16 @@ app.use('/api', require('./routes/api'));
 
 //Initialise DB Conenction
 
-MongoClient.connect(mongoURI, function(err, client) {
-  const collection = client.db("geoparkDB");
+MongoClient.connect(mongoURI, { 
     useNewUrlParser: true,
     useUnifiedTopology: true
-  // perform actions on the collection object
-  client.close();
+}).then(() => {
+    console.log('Connected to the DB');
+})
+    .catch((err) => {
+        console.log('Not connected to the DB with err: ' + err);
+    });
+ 
 });
 
 /*
