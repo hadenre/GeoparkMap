@@ -5,7 +5,7 @@ const router = express.Router();
 
 var { isAuth } = require('../middleware/isAuth');
 
-const PinPoints = require('../models/PinPoints');
+const PinPointing = require('../models/PinPoints');
 
 const Events = require('../models/Events');
 
@@ -18,7 +18,7 @@ router.post('/addPinPoint', isAuth, (req, res) => {
         const { name, category, streetAddress, cityTown, postcode, phone, longitude, latitude,
             openingTimes, toilets, parking, wheelChairAccess, dogFriendly, shortDescription, link, imageName, imageName2, imageName3, videoLink, showLarge } = req.body;
 
-        pinPoint = new PinPoints({
+        pinPoint = new PinPointing({
             name,
             category,
             streetAddress,
@@ -52,7 +52,7 @@ router.post('/addPinPoint', isAuth, (req, res) => {
 router.get('/getPinPoints', (req, res) => {
     try {
         //PinPoints.find({}, (err, docs) => {
-        PinPoints.find({}, null, {sort: {category: -1}}, function(err, docs) {
+        PinPointing.find({}, null, {sort: {category: -1}}, function(err, docs) {
             if (err) throw err;
             res.status(200).send(docs);
         })
@@ -64,7 +64,7 @@ router.get('/getPinPoints', (req, res) => {
 
 router.delete('/delete/:id', isAuth, (req, res) => {
     try {
-        PinPoints.findOneAndDelete({ _id: req.params.id }, (err) => {
+        PinPointing.findOneAndDelete({ _id: req.params.id }, (err) => {
             if (err) throw err;
             res.status(200).redirect('/admin/dashboard');
         })
@@ -78,7 +78,7 @@ router.post('/update/:id', isAuth, (req, res) => {
     try {
         const { name, category, streetAddress, cityTown, postcode, phone, longitude, latitude,
             openingTimes, toilets, parking, wheelChairAccess, dogFriendly, shortDescription, link, imageName, imageName2, imageName3, videoLink, showLarge } = req.body;
-        PinPoints.findOneAndUpdate({ _id: req.params.id }, {
+        PinPointing.findOneAndUpdate({ _id: req.params.id }, {
             $set: {
                 name, category, streetAddress, cityTown, postcode, phone, longitude, latitude, 
                 openingTimes, toilets, parking, wheelChairAccess, dogFriendly, shortDescription, link, imageName, imageName2, imageName3, videoLink, showLarge
