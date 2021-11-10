@@ -19,8 +19,8 @@ var orangeMarkerBTN = document.querySelector('#orangeMarkerBTN');
 var greyMarkers = document.querySelectorAll('.greyMarker');
 var greyMarkerBTN = document.querySelector('#greyMarkerBTN');
 
-var yellowMarkers = document.querySelectorAll('.greyMarker');
-var yellowMarkerBTN = document.querySelector('#greyMarkerBTN');
+var yellowMarkers = document.querySelectorAll('.yellowMarker');
+var yellowMarkerBTN = document.querySelector('#yellowMarkerBTN');
 
 //var overlayBTN = document.querySelector('#overlayBTN');
 //var overlay = document.querySelector('.overlay_a');
