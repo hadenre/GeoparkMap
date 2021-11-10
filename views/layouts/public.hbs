@@ -171,6 +171,23 @@
                 } showNV = true;
             }
         };
+        
+          var showAC = true;
+        var Btn7 = document.getElementById('yellowMarkerBTN');
+        Btn7.onclick = function () {
+            if (showAC) {
+                let markers = document.getElementsByClassName("marker agathaMarker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "hidden";
+                    showAC = false;
+                }
+            } else {
+                let markers = document.getElementsByClassName("marker agathaMarker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "visible";
+                } showAC = true;
+            }
+        };
 
         var SatBtn = document.getElementById('satellite-v9');
         SatBtn.onclick = function () {
@@ -208,6 +225,8 @@
             if (mapBtn == false) {
                 map.setPaintProperty('fooldome-2pdv6axb', 'raster-opacity', 0);
                 document.getElementById("keyBTN").style.display = "none";
+                document.getElementById("GeoKey").style.display = "none";
+                showKG = false;
             }
         }
 
