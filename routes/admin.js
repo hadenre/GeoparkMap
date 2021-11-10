@@ -25,9 +25,9 @@ var { isAuth } = require('../middleware/isAuth');
 require('../middleware/passport')(passport);
 
 const User = require('../models/User');
-const PinPoints = require('../models/PinPoints');
-const Events = require('../models/Events');
-const Routes = require('../models/Routes');
+const PinPointed = require('../models/PinPoints');
+const Evented = require('../models/Events');
+const Routed = require('../models/Routes');
 
 router.use(express.static('www'));
 
@@ -92,15 +92,15 @@ router.get('/signout', isAuth, (req, res) => {
 router.get('/dashboard', isAuth, async (req, res) => {
     try {
         var pinDocuments, eventDocuments, routeDocuments;
-        await PinPoints.find({}, null, {sort:{ category: -1 }}, function(err, pinDocs) {
+        await PinPointed.find({}, null, {sort:{ category: -1 }}, function(err, pinDocs) {
             if (err) throw err;
             pinDocuments = pinDocs;
         })
-        await Events.find({}, (err, eventDocs) => {
+        await Evented.find({}, (err, eventDocs) => {
             if (err) throw err;
             eventDocuments = eventDocs
         })
-        await Routes.find({}, (err, routeDocs) => {
+        await Routed.find({}, (err, routeDocs) => {
             if (err) throw err;
             routeDocuments = routeDocs
         })
@@ -118,7 +118,7 @@ router.get('/dashboard', isAuth, async (req, res) => {
 router.get('/dashboard', isAuth, (req, res) => {
     //console.log("getEventsAdmin");
     try {
-        Events.find({}).lean()
+        Evented.find({}).lean()
             .exec((err, pind) => {
                 if (pind.length) {
                     res.status(200).render('adminDashboard', { layout: 'admin', pind: pind, pindExist: true });
