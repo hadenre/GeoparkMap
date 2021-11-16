@@ -24,7 +24,7 @@
     
 
         // Screen Rotation Check
-
+/*
         window.addEventListener("deviceorientation", isRotated, true);
      //  const content = new Array();
         //var popR = "";
@@ -43,9 +43,7 @@
                 //popSize();
             }
         }
-
-        //var textureone = false;
-      //  var texturetwo = true;
+        */
        
         mapboxgl.accessToken = 'pk.eyJ1IjoiZm9vbGRvbWUiLCJhIjoiY2pxcHJyb2c1MDBzajQzbzZoM2dlaHRkeiJ9.CDXrbrpZqfi6A5bg5mX9TA';
 
@@ -740,7 +738,7 @@
 
                 var linkCheck = "";
                 if (pin.link) {
-                    linkCheck = "<br/><a href ='" + pin.link + "' target='_blank'>Website</a><br/>";
+                    linkCheck = "<a href ='" + pin.link + "' target='_blank'>Website</a><br/>";
                 } else if (!pin.link) {
                     linkCheck = "";
                 };
@@ -908,7 +906,7 @@
                                                 ${imageCheck}
                                                 ${nameCheck}
                                                 ${opentimes}
-                                                ${linkCheck} </br>
+                                                ${linkCheck}
                                                 ${parkingCheck}
                                                 ${toiletCheck}
                                                 ${wheelchairCheck}
