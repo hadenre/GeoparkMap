@@ -15,13 +15,13 @@
 }
 
 
-
+/*
 .container {
     position: absolute;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-}
+*/
 
 .w-100{
     width: 100vw;
@@ -167,13 +167,7 @@
     z-index: 105;
 }
 
-.mapboxgl-popup-content {
-    text-align: center;
-    font-family: OSreg;
-    border: 1px solid #ee9922;
-    padding: 10px;
-    width: 100%;
-}
+
 
 .hideMarker{
     display: none;
@@ -190,7 +184,7 @@
 }
 
 
-
+/*
 .markerBTN {
     display: inline-table;
     width: 13vmax;
@@ -206,6 +200,7 @@
     font-family: OSreg;
     font-size: 1vmax;
 }
+*/
 
 
 
@@ -499,12 +494,13 @@ input[type="checkbox"] {
     position: relative;
     top: 10px; 
     left: 10px;
+    right:10px;
     text-align: center;
     display: block;
-    line-height: 1;
     width: 100%;
     
 }
+/*
 .overlay_a {
     padding: 8px;
     text-decoration: none;
@@ -514,7 +510,7 @@ input[type="checkbox"] {
     display: block; 
     transition: 0.3s;
     text-align: center;
-}
+}*/
 
 .overlayBG {
     position: fixed;
@@ -527,25 +523,9 @@ input[type="checkbox"] {
 }
 
 
-.pinHeading {
-    font-size: 200%;
-    font-family: Roboto;
-    color: #000000;
-}
 
-.pintime {
-    font-size: 150%;
-    font-family: Roboto;
-    color: #000000;
-}
 
-.fontHeading {
-    /*font-size: 1rem;*/
-    font-size: 4vmin;
-    text-align: center;
-    font-family: Roboto;
-    color: #000000;
-}
+
 
 .fontTime {
     font-size: 3vmin;
@@ -554,12 +534,7 @@ input[type="checkbox"] {
     color: #000000;
 }
 
-.fontBody {
-    font-size: 2vmin;
-    font-family: OSbold;
-    line-height: 0.5;
-    color: #000000;
-}
+
 
 .imgApt {
     position: absolute;
@@ -594,8 +569,113 @@ input[type="checkbox"] {
 }
 
 
-@media only screen and (max-width: 1000px) {
-    .container{
-        height: 700px;
-    }
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (orientation: landscape) and (min-width : 321px) {
+ 
 }
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (orientation: portrait) and (max-width : 320px) {
+    /* Styles */
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+    /* Styles */
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+    /* Styles */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 1224px) {
+    .container {
+        position: absolute;
+        width: 100%;
+        height: 100vh%;
+        overflow: hidden;
+    }
+
+
+    .markerBTN {
+        display: inline-table;
+        width: 13vmax;
+        height: 7vmax;
+        padding: 5px 5px;
+        background-color: grey;
+        border-radius: 5px;
+        border: 2px solid #fff;
+        color: #fff;
+        z-index: 3;
+        margin: 0 auto;
+        text-align: center;
+        font-family: OSreg;
+        font-size: 20px;
+    }
+
+    .overlay_a {
+        padding: 8px;
+        text-decoration: none;
+        font-size: 50px;
+        font-family: Roboto;
+        color: #000000;
+        display: block;
+        transition: 0.3s;
+        text-align: center;
+        line-height: 40px;
+    }
+
+    .fontBody {
+        font-size: 20px;
+        font-family: Roboto;
+        line-height: 0.2px;
+        color: #000000;
+    }
+
+    .fontHeading {
+        font-size: 40px;
+        text-align: center;
+        font-family: Roboto;
+        color: #000000;
+        line-height: 0.2px;
+    }
+
+    .pintime {
+        font-size: 20px;
+        font-family: Roboto;
+        color: #000000;
+        line-height: 2px;
+    }
+
+    .pinHeading {
+        font-size: 30px;
+        font-family: Roboto;
+        color: #000000;
+        line-height: 2px;
+    }
+
+    .mapboxgl-popup-content {
+        text-align: center;
+        font-family: Roboto;
+        border: 1px solid #ee9922;
+        padding: 10px;
+        width: 100%;
+        line-height: 30px;
+    }
+
+
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width : 1824px) {
+    /* Styles */
+}
+
+/* iPhone 4 ----------- */
+@media only screen and (-webkit-min-device-pixel-ratio : 1.5), only screen and (min-device-pixel-ratio : 1.5) {
+    /* Styles */
+}
+
