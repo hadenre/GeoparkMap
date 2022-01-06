@@ -96,11 +96,11 @@ router.get('/dashboard', isAuth, async (req, res) => {
             if (err) throw err;
             pinDocuments = pinDocs;
         })
-        await Evented.find({}, null, {sort:{ category: -1 }}, function (err, eventDocs) => {
+        await Evented.find({}, null, {sort:{ category: -1 }}, function (err, eventDocs) {
             if (err) throw err;
             eventDocuments = eventDocs
         })
-        await Routed.find({}, null, {sort:{ category: -1 }}, function (err, routeDocs) => {
+        await Routed.find({}, null, {sort:{ category: -1 }}, function (err, routeDocs) {
             if (err) throw err;
             routeDocuments = routeDocs
         })
