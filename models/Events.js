@@ -1,4 +1,3 @@
-//Pin location Data structure
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -14,13 +13,16 @@ var EventsSchema = new Schema({
     endDate: String,
     openingTimes: String,
     shortDescription: String,
+    link: String,
+    imageName: String,
+    imageName2: String,
+    videoLink: String,
     toilets: Boolean,
     food: Boolean,
     parking: Boolean,
     wheelChairAccess: Boolean,
     dogFriendly: Boolean,
-    link: String,
-    imageName: String
+    showLarge: Boolean
 });
 
 module.exports = Events = mongoose.model('Events', EventsSchema);
