@@ -1,4 +1,4 @@
-﻿
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,43 +8,22 @@
     <title>GeoPark Map</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="shortcut icon" href="#" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
 <body>
     {{{body}}}
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
     <script src="https://unpkg.com/three@0.106.2/build/three.min.js"></script>
     <script src="https://unpkg.com/three@0.106.2/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
+   
     <script>
 
-    
-
-        // Screen Rotation Check
-/*
-        window.addEventListener("deviceorientation", isRotated, true);
-     //  const content = new Array();
-        //var popR = "";
-        isRotated();
-
-        function isRotated() {
-            if (window.innerHeight > window.innerWidth) {
-                console.log("isPortrait!");
-                popR = true; 
-               // popSize();
-                
-            }
-            if (window.innerHeight < window.innerWidth) {
-                console.log("isLandscape!");
-                popR = false;
-                //popSize();
-            }
-        }
-        */
-       
         mapboxgl.accessToken = 'pk.eyJ1IjoiZm9vbGRvbWUiLCJhIjoiY2pxcHJyb2c1MDBzajQzbzZoM2dlaHRkeiJ9.CDXrbrpZqfi6A5bg5mX9TA';
 
         var bounds = [
@@ -86,7 +65,6 @@
             }
         };
 
-
         var showTTE = true;
         var Btn3 = document.getElementById('orangeMarkerBTN');
         Btn3.onclick = function () {
@@ -104,7 +82,6 @@
             }
         };
 
-
         var showRV = true;
         var Btn4 = document.getElementById('redMarkerBTN');
         Btn4.onclick = function () {
@@ -113,17 +90,26 @@
                 for (let i = 0; i < markers.length; i++) {
                     markers[i].style.visibility = "hidden";
 
-                    map.setLayoutProperty('walk1-akiqwa', 'visibility', 'none');
+                    map.setLayoutProperty('WALK1-akiqwa', 'visibility', 'none');
                     map.setLayoutProperty('walk2-1nimxe', 'visibility', 'none');
                     map.setLayoutProperty('walk3-17v8u6', 'visibility', 'none');
                     map.setLayoutProperty('walk4-ccwitz', 'visibility', 'none');
                     map.setLayoutProperty('walk5-0zblzq', 'visibility', 'none');
-
+                    map.setLayoutProperty('madiencombe-8re3cq', 'visibility', 'none');
+                    map.setLayoutProperty('daddyhole-0d4w3w', 'visibility', 'none');
+                    map.setLayoutProperty('scadson-6dybq5', 'visibility', 'none');
+                    map.setLayoutProperty('broadsands-62tm86', 'visibility', 'none');
+                    map.setLayoutProperty('brixham-0vl24r', 'visibility', 'none');
                     walk1bool = false;
                     walk2bool = false;
                     walk3bool = false;
                     walk4bool = false;
                     walk5bool = false;
+                    walk6bool = false;
+                    walk7bool = false;
+                    walk8bool = false;
+                    walk9bool = false;
+                    walk10bool = false;
 
                     showRV = false;
                 }
@@ -152,7 +138,6 @@
             }
         };
 
-
         var showNV = true;
         var Btn6 = document.getElementById('blueMarkerBTN');
         Btn6.onclick = function () {
@@ -169,8 +154,8 @@
                 } showNV = true;
             }
         };
-        
-          var showAC = true;
+
+         var showAC = true;
         var Btn7 = document.getElementById('yellowMarkerBTN');
         Btn7.onclick = function () {
             if (showAC) {
@@ -186,6 +171,8 @@
                 } showAC = true;
             }
         };
+        var colorWalk;
+        var buildOpa;
 
         var SatBtn = document.getElementById('satellite-v9');
         SatBtn.onclick = function () {
@@ -193,14 +180,26 @@
             setTimeout(900);
             Boundfunction();
             mapfunction();
+            colorWalk = '#ffffff';
+            buildOpa = 0;
+            walk1bool = false; walk2bool = false; walk3bool = false; walk4bool = false; walk5bool = false;
+            walk6bool = false; walk7bool = false; walk8bool = false; walk9bool = false; walk10bool = false;
             layers();
+            const popup = document.getElementsByClassName('mapboxgl-popup');
+            popup[0].remove(); 
+    
         }
         var StrBtn = document.getElementById('streets-v11');
         StrBtn.onclick = function () {
-            map.setStyle('mapbox://styles/fooldome/cklpjftts0yi817nofmdeengl');
+            map.setStyle('mapbox://styles/fooldome/cklpjftts0yi817nofmdeengl');            
             setTimeout(900);
+            colorWalk = '#000000';
+            buildOpa = 0.8;
+            walk1bool = false; walk2bool = false; walk3bool = false; walk4bool = false; walk5bool = false;
+            walk6bool = false; walk7bool = false; walk8bool = false; walk9bool = false; walk10bool = false;
             layers();
-
+            const popup = document.getElementsByClassName('mapboxgl-popup');
+            popup[0].remove();
         }
 
         function Boundfunction() {
@@ -217,14 +216,19 @@
             if (mapBtn == true) {
                 map.setPaintProperty('fooldome-2pdv6axb', 'raster-opacity', 1);
                 document.getElementById("keyBTN").style.display = "block";
-               
-
+                document.getElementById("infoBTN").style.display = "block";            
+                map.setPaintProperty('3d-buildings', 'fill-extrusion-opacity', 0);
             }
             if (mapBtn == false) {
                 map.setPaintProperty('fooldome-2pdv6axb', 'raster-opacity', 0);
                 document.getElementById("keyBTN").style.display = "none";
+                document.getElementById("infoBTN").style.display = "none";
                 document.getElementById("GeoKey").style.display = "none";
+                document.getElementById("GeoKey2").style.display = "none";
+                document.getElementById("infoKey").style.display = "none";
+                map.setPaintProperty('3d-buildings', 'fill-extrusion-opacity', 1);
                 showKG = false;
+                showIG = false;
             }
         }
 
@@ -234,13 +238,25 @@
         function showKeyGeo() {        
             if (showKG) {                 
                 document.getElementById("GeoKey").style.display = "none";
+                document.getElementById("GeoKey2").style.display = "none";
                 showKG = false;
             }else if (!showKG) {                           
                 document.getElementById("GeoKey").style.display = "block";
+                document.getElementById("GeoKey2").style.display = "block";
                 showKG = true; 
                 }            
         };
 
+        var showIG = false;
+        function showInfoGeo() {        
+            if (showIG) {                 
+                document.getElementById("infoKey").style.display = "none";
+                showIG = false;
+            }else if (!showIG) {                           
+                document.getElementById("infoKey").style.display = "block";
+                showIG = true; 
+                }            
+        };
 
         //TURN GREYED BG INTO CLOSE OVERLAY BUTTON
 
@@ -253,8 +269,6 @@
 
         var map = new mapboxgl.Map({
             container: 'map',
-            //style: 'mapbox://styles/chrisboothplymuni/ckae68o100r5f1irtl8cwcemn',
-            // style: 'mapbox://styles/fooldome/ck8pyta001abe1iqykg9d6kkm',
             style: 'mapbox://styles/fooldome/cklpjftts0yi817nofmdeengl',
 
             center: [-3.525, 50.428],
@@ -271,12 +285,6 @@
                 'type': 'raster',
                 'url': 'mapbox://fooldome.2pdv6axb'
             });
-            /* map.addLayer({
-                 'id': 'oldmap-c8d9tq',
-                 'source': 'oldmap-c8d9tq',
-                 'type': 'raster'
-             })
-             map.setPaintProperty('oldmap-c8d9tq', 'raster-opacity', 0);*/
         });
 
         map.on('load', function () {
@@ -284,79 +292,185 @@
                 'type': 'vector',
                 'url': 'mapbox://fooldome.ctttb3nk'
             });
-            /*map.addLayer({
-                'id': 'torquayline-11thnt',
-                'type': 'line',
-                'source': 'torquayline-11thnt',
-                'source-layer': 'torquayline-11thnt',
-                'layout': {
-                    'line-join': 'round',
-                    'line-cap': 'round'
-                    },
-                'paint': {
-                    'line-color': '#8f0004',
-                    'line-width': 2
-                    }
-            })*/
-
         });
 
         layers();
-
 
         function layers() {
 
             //WALKS
 
             map.once('sourcedata', function () {
-                map.addSource('walk1-akiqwa', {
+
+                map.addSource('WALK1-akiqwa', {
                     'type': 'vector',
                     'url': 'mapbox://fooldome.8hp9ewxu'
                 });
-                
-                map.setLayoutProperty('walk1-akiqwa', 'visibility', 'none');
-                map.setPaintProperty('walk1-akiqwa', 'fill-opacity', 1);
+                map.addLayer({
+                    'id': 'WALK1-akiqwa',
+                    'type': 'fill',
+                    'source': 'WALK1-akiqwa',
+                    'source-layer': 'WALK1-akiqwa',
+                    'layout': { 'visibility': 'none' }              
+                   })
+                map.setPaintProperty('WALK1-akiqwa', 'fill-color', colorWalk);
               
                 map.addSource('walk2-1nimxe', {
                     'type': 'vector',
                     'url': 'mapbox://fooldome.dyjdwz5v'
                 });
-               
-                map.setLayoutProperty('walk2-1nimxe', 'visibility', 'none');
-                map.setPaintProperty('walk2-1nimxe', 'fill-opacity', 1);
+                map.addLayer({
+                    'id': 'walk2-1nimxe',
+                    'type': 'fill',
+                    'source': 'walk2-1nimxe',
+                    'source-layer': 'walk2-1nimxe',
+                    'layout': { 'visibility': 'none' }              
+                   })
+                map.setPaintProperty('walk2-1nimxe', 'fill-color', colorWalk);
                
                 map.addSource('walk3-17v8u6', {
                     'type': 'vector',
                     'url': 'mapbox://fooldome.5aqxr3fr'
                 });
-                
-                map.setLayoutProperty('walk3-17v8u6', 'visibility', 'none');
-                map.setPaintProperty('walk3-17v8u6', 'fill-opacity', 1);
+                map.addLayer({
+                    'id': 'walk3-17v8u6',
+                    'type': 'fill',
+                    'source': 'walk3-17v8u6',
+                    'source-layer': 'walk3-17v8u6',
+                    'layout': { 'visibility': 'none' }              
+                   })
+                map.setPaintProperty('walk3-17v8u6', 'fill-color', colorWalk);
                 
                 map.addSource('walk4-ccwitz', {
                     'type': 'vector',
                     'url': 'mapbox://fooldome.16bwzs0i'
                 });
-                
-                map.setLayoutProperty('walk4-ccwitz', 'visibility', 'none');
-                map.setPaintProperty('walk4-ccwitz', 'fill-opacity', 1);
+                map.addLayer({
+                    'id': 'walk4-ccwitz',
+                    'type': 'fill',
+                    'source': 'walk4-ccwitz',
+                    'source-layer': 'walk4-ccwitz',
+                    'layout': { 'visibility': 'none' }              
+                   })
+                map.setPaintProperty('walk4-ccwitz', 'fill-color', colorWalk);
               
                 map.addSource('walk5-0zblzq', {
                     'type': 'vector',
                     'url': 'mapbox://fooldome.3flgizac'
                 });
-                
-                map.setLayoutProperty('walk5-0zblzq', 'visibility', 'none');
-                map.setPaintProperty('walk5-0zblzq', 'fill-opacity', 1);
-                
+                map.addLayer({
+                    'id': 'walk5-0zblzq',
+                    'type': 'fill',
+                    'source': 'walk5-0zblzq',
+                    'source-layer': 'walk5-0zblzq',
+                    'layout': { 'visibility': 'none' }              
+                   })
+                map.setPaintProperty('walk5-0zblzq', 'fill-color', colorWalk);
+
+                map.addSource('madiencombe-8re3cq', {
+                    'type': 'vector',
+                    'url': 'mapbox://fooldome.87eknhd4'
+                });
+                   map.addLayer({
+                    'id': 'madiencombe-8re3cq',
+                    'type': 'fill',
+                    'source': 'madiencombe-8re3cq',
+                    'source-layer': 'madiencombe-8re3cq',
+                    'layout': { 'visibility': 'none' }              
+                   })
+                map.setPaintProperty('madiencombe-8re3cq', 'fill-color', colorWalk);
+       
+
+                map.addSource('daddyhole-0d4w3w', {
+                    'type': 'vector',
+                    'url': 'mapbox://fooldome.99yz90af'
+                });
+                map.addLayer({
+                    'id': 'daddyhole-0d4w3w',
+                    'type': 'fill',
+                    'source': 'daddyhole-0d4w3w',
+                    'source-layer': 'daddyhole-0d4w3w',
+                    'layout': { 'visibility': 'none' }              
+                   })
+                map.setPaintProperty('daddyhole-0d4w3w', 'fill-color', colorWalk);
+
+                map.addSource('scadson-6dybq5', {
+                    'type': 'vector',
+                    'url': 'mapbox://fooldome.crez239v'
+                });
+                map.addLayer({
+                    'id': 'scadson-6dybq5',
+                    'type': 'fill',
+                    'source': 'scadson-6dybq5',
+                    'source-layer': 'scadson-6dybq5',
+                    'layout': { 'visibility': 'none' }              
+                   })
+                map.setPaintProperty('scadson-6dybq5', 'fill-color', colorWalk);
+
+                map.addSource('broadsands-62tm86', {
+                    'type': 'vector',
+                    'url': 'mapbox://fooldome.5mjik4k8'
+                });
+                map.addLayer({
+                    'id': 'broadsands-62tm86',
+                    'type': 'fill',
+                    'source': 'broadsands-62tm86',
+                    'source-layer': 'broadsands-62tm86',
+                    'layout': { 'visibility': 'none' }              
+                   })
+                map.setPaintProperty('broadsands-62tm86', 'fill-color', colorWalk);
+
+                 map.addSource('brixham-0vl24r', {
+                    'type': 'vector',
+                    'url': 'mapbox://fooldome.6j13a1z4'
+                 });
+                map.addLayer({
+                    'id': 'brixham-0vl24r',
+                    'type': 'fill',
+                    'source': 'brixham-0vl24r',
+                    'source-layer': 'brixham-0vl24r',
+                    'layout': { 'visibility': 'none' }              
+                   })
+                map.setPaintProperty('brixham-0vl24r', 'fill-color', colorWalk);
+
+                // STREETVIEW 3D BUILDINGS
+
+                map.addLayer({
+                    'id': '3d-buildings',
+                    'source': 'composite',
+                    'source-layer': 'building',
+                    'filter': ['==', 'extrude', 'true'],
+                    'type': 'fill-extrusion',
+                    'minzoom': 15,
+                    'paint': {
+                        'fill-extrusion-color': '#aaa',
+                        'fill-extrusion-height': [
+                            'interpolate',
+                            ['linear'],
+                            ['zoom'],
+                            15,
+                            0,
+                            15.05,
+                            ['get', 'height']
+                        ],
+                        'fill-extrusion-base': [
+                            'interpolate',
+                            ['linear'],
+                            ['zoom'],
+                            15,
+                            0,
+                            15.05,
+                            ['get', 'min_height']
+                        ]}
+                })
+                map.setPaintProperty('3d-buildings', 'fill-extrusion-opacity', buildOpa);
 
                 // SEA GRASS
 
                 map.addSource('grass1-cufgcj', {
                     'type': 'vector',
                     'url': 'mapbox://fooldome.3qmmdpq1'
-                });
-              
+                });              
                 map.addLayer({
                     'id': 'grass1-cufgcj',
                     'type': 'fill',
@@ -371,7 +485,6 @@
                     'type': 'vector',
                     'url': 'mapbox://fooldome.dso2jc6p'
                 });
-
                 map.addLayer({
                     'id': 'grass2-0wfnt0',
                     'type': 'fill',
@@ -385,8 +498,6 @@
                     'type': 'vector',
                     'url': 'mapbox://fooldome.2ws012f7'
                 });
-
-
                 map.addLayer({
                     'id': 'grass3-9atkvt',
                     'type': 'fill',
@@ -400,8 +511,6 @@
                     'type': 'vector',
                     'url': 'mapbox://fooldome.39vbqkyx'
                 });
-
-
                 map.addLayer({
                     'id': 'grass4-5lnw9d',
                     'type': 'fill',
@@ -415,8 +524,6 @@
                     'type': 'vector',
                     'url': 'mapbox://fooldome.7ve6s9xb'
                 });
-
-
                 map.addLayer({
                     'id': 'grass5-26rquz',
                     'type': 'fill',
@@ -425,8 +532,6 @@
                     'layout': { 'visibility': 'none' },
                     'paint': { 'fill-color': '#0aa30d' }
                 })
-
-
             })
         };
 
@@ -449,22 +554,18 @@
         // WALK VISABILITY FUNCTION
 
         var walk1bool = false;
-
         function walk1() {
-
             if (walk1bool == false) {
-                map.setLayoutProperty('walk1-akiqwa', 'visibility', 'visible');
+                map.setLayoutProperty('WALK1-akiqwa', 'visibility', 'visible');
                 walk1bool = true;
             } else {
-                map.setLayoutProperty('walk1-akiqwa', 'visibility', 'none');
+                map.setLayoutProperty('WALK1-akiqwa', 'visibility', 'none');
                 walk1bool = false;
             }
         };
 
         var walk2bool = false;
-
         function walk2() {
-
             if (walk2bool == false) {
                 map.setLayoutProperty('walk2-1nimxe', 'visibility', 'visible');
                 walk2bool = true;
@@ -475,9 +576,7 @@
         };
 
         var walk3bool = false;
-
         function walk3() {
-
             if (walk3bool == false) {
                 map.setLayoutProperty('walk3-17v8u6', 'visibility', 'visible');
                 walk3bool = true;
@@ -486,10 +585,9 @@
                 walk3bool = false;
             }
         };
+
         var walk4bool = false;
-
         function walk4() {
-
             if (walk4bool == false) {
                 map.setLayoutProperty('walk4-ccwitz', 'visibility', 'visible');
                 walk4bool = true;
@@ -500,9 +598,7 @@
         };
 
         var walk5bool = false;
-
         function walk5() {
-
             if (walk5bool == false) {
                 map.setLayoutProperty('walk5-0zblzq', 'visibility', 'visible');
                 walk5bool = true;
@@ -512,12 +608,65 @@
             }
         };
 
+        var walk6bool = false;
+        function walk6() {
+            if (walk6bool == false) {
+                map.setLayoutProperty('madiencombe-8re3cq', 'visibility', 'visible');
+                walk6bool = true;
+            } else {
+                map.setLayoutProperty('madiencombe-8re3cq', 'visibility', 'none');
+                walk6bool = false;
+            }
+        };
+
+        var walk7bool = false;
+        function walk7() {
+            if (walk7bool == false) {
+                map.setLayoutProperty('daddyhole-0d4w3w', 'visibility', 'visible');
+                walk7bool = true;
+            } else {
+                map.setLayoutProperty('daddyhole-0d4w3w', 'visibility', 'none');
+                walk7bool = false;
+            }
+        };
+
+        var walk8bool = false;
+         function walk8() {
+            if (walk8bool == false) {
+                map.setLayoutProperty('scadson-6dybq5', 'visibility', 'visible');
+                walk8bool = true;
+            } else {
+                map.setLayoutProperty('scadson-6dybq5', 'visibility', 'none');
+                walk8bool = false;
+            }
+        };
+
+        var walk9bool = false;
+         function walk9() {
+            if (walk9bool == false) {
+                map.setLayoutProperty('broadsands-62tm86', 'visibility', 'visible');
+                walk9bool = true;
+            } else {
+                map.setLayoutProperty('broadsands-62tm86', 'visibility', 'none');
+                walk9bool = false;
+            }
+        };
+
+        var walk10bool = false;
+         function walk10() {
+            if (walk10bool == false) {
+                map.setLayoutProperty('brixham-0vl24r', 'visibility', 'visible');
+                walk10bool = true;
+            } else {
+                map.setLayoutProperty('brixham-0vl24r', 'visibility', 'none');
+                walk10bool = false;
+            }
+        };
+
         //GRASS
 
         var grass1bool = false;
-
         function grass1() {
-
             if (grass1bool == false) {
                 map.setLayoutProperty('grass1-cufgcj', 'visibility', 'visible');
                 grass1bool = true;
@@ -528,9 +677,7 @@
         };
 
         var grass2bool = false;
-
         function grass2() {
-
             if (grass2bool == false) {
                 map.setLayoutProperty('grass2-0wfnt0', 'visibility', 'visible');
                 grass2bool = true;
@@ -540,9 +687,7 @@
             }
         };
         var grass3bool = false;
-
         function grass3() {
-
             if (grass3bool == false) {
                 map.setLayoutProperty('grass3-9atkvt', 'visibility', 'visible');
                 grass3bool = true;
@@ -552,9 +697,7 @@
             }
         };
         var grass4bool = false;
-
         function grass4() {
-
             if (grass4bool == false) {
                 map.setLayoutProperty('grass4-5lnw9d', 'visibility', 'visible');
                 grass4bool = true;
@@ -565,9 +708,7 @@
         };
 
         var grass5bool = false;
-
         function grass5() {
-
             if (grass5bool == false) {
                 map.setLayoutProperty('grass5-26rquz', 'visibility', 'visible');
                 grass5bool = true;
@@ -581,7 +722,8 @@
 
          function introClose(){
              document.getElementById('Intro').style.display = 'none';
-              document.getElementById('introBG').style.display = "none";
+             document.getElementById('introBG').style.display = "none";
+             document.getElementById('menuBTN').click();
         }
 
         var introIndex = 1;
@@ -598,19 +740,13 @@
         function showIntro(n) {
   var i;
   var slides = document.getElementsByClassName("innerContainer");
-  //var circles = document.getElementsByClassName("dots");
   if (n > slides.length) {introIndex = 1}
   if (n < 1) {introIndex = slides.length}
   for (i = 0; i < slides.length; i++) {
       slides[i].style.display = "none";
   }
-  //for (i = 0; i < circles.length; i++) {
-    // circles[i].className = circles[i].className.replace(" enable", "");
-  //}
   slides[introIndex-1].style.display = "block";
-  //circles[introIndex-1].className += " enable";
 } 
-
         // POPUP IMAGE SLIDESHOW CONTROL
 
         var slideIndex = 1;
@@ -645,12 +781,7 @@
                 slides[i].style.display = "none";
             }
             slides[slideIndex - 1].style.display = "block";
-        }  
-
-
-        
-       
-
+        } 
 
         //PINPOINT SETUP
 
@@ -658,29 +789,19 @@
             return res.json();
         }).then((data) => {
             data.forEach((pin) => {
-
-
+                
                 // CHECK FOR EACH DATA INPUT FROM SPECIFIC PINs FORM
+                // MAP POPUPS
 
                 var nameCheck = "";
                 nameCheck = "<span class='pinHeading'>" + pin.name + "</span><br/>";
-
-                /*  
-                  var videoCheck = "";
-                     if (pin.videoLink) {
-                          videoCheck = "<iframe id='vidF' width='220' height='160' src='" + pin.videoLink + "'frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe><br>";
-                     } else if (!pin.videoLink) {
-                         videoCheck = "";
-                    };    
-               */
 
                 var imageCheck = "";
 
                 if (pin.showLarge) {
 
                     if (pin.imageName) {
-                       // imageCheck = "<a id='overlayBUTTON' onclick='ShowOverlay()'><img src='img/photos/" + pin.imageName + "' class='imgAptPOLL'></a><br/>";
-                        imageCheck = "<a id='overlayBUTTON' onclick='ShowOverlay()'><img src='img/photos/" + pin.imageName + "' style='width:220px;height:200px;object-fit:cover;object-position:50%100%;'></a><br/>";
+                        imageCheck = "<div class='popContainer'><img src='img/photos/" + pin.imageName + "' class='popImg'><div class='expandIcon' id='overlayBUTTON' onclick='ShowOverlay()'><i class='fas fa-expand-alt'></i></div></div><br/>";
                     } else if (!pin.imageName) {
                         imageCheck = "";
                     };
@@ -688,7 +809,7 @@
                 } else if (!pin.showLarge) {
 
                     if (pin.imageName) {
-                        imageCheck = "<img src='img/photos/" + pin.imageName + "' style='width:220px;height:200px;object-fit:cover;object-position:50%100%;'><br/>";
+                        imageCheck = "<div class='popContainer'><img src='img/photos/" + pin.imageName + "' class='popImg'></div><br/>";
                     } else if (!pin.imageName) {
                         imageCheck = "";
                     };
@@ -703,42 +824,42 @@
 
                 var parkingCheck = "";
                 if (pin.parking) {
-                    parkingCheck = "<i class='fas fa-parking' aria-hidden='true' style='font-size:24px'></i>";
+                    parkingCheck = "<i class='fas fa-parking' aria-hidden='true' class='icon'></i>";
                 } else if (!pin.parking) {
                     parkingCheck = "";
                 };
 
                 var toiletCheck = "";
                 if (pin.toilets) {
-                    toiletCheck = "<i class='fas fa-toilet' aria-hidden='true' style='font-size:24px'></i>";
+                    toiletCheck = "<i class='fas fa-toilet' aria-hidden='true' class='icon'></i>";
                 } else if (!pin.toilets) {
                     toiletCheck = "";
                 };
 
                 var wheelchairCheck = "";
                 if (pin.wheelChairAccess) {
-                    wheelchairCheck = "<i class='fas fa-wheelchair' aria-hidden='true'style='font-size:24px'></i>";
+                    wheelchairCheck = "<i class='fas fa-wheelchair' aria-hidden='true' class='icon'></i>";
                 } else if (!pin.wheelChairAccess) {
                     wheelchairCheck = "";
                 };
 
                 var foodCheck = "";
                 if (pin.food) {
-                    foodCheck = "<i class='fas fa-utensils' aria-hidden='true' style='font-size:24px'></i>";
+                    foodCheck = "<i class='fas fa-utensils' aria-hidden='true' class='icon'></i>";
                 } else if (!pin.food) {
                     foodCheck = "";
                 };
 
                 var dogCheck = "";
                 if (pin.dogFriendly) {
-                    dogCheck = "<i class='fas fa-dog' aria-hidden='true' style='font-size:24px'></i>";
+                    dogCheck = "<i class='fas fa-dog' aria-hidden='true' class='icon'></i>";
                 } else if (!pin.dogFriendly) {
                     dogCheck = "";
                 };
 
                 var linkCheck = "";
                 if (pin.link) {
-                    linkCheck = "<a href ='" + pin.link + "' target='_blank'>Website</a><br/>";
+                    linkCheck = "<a href ='" + pin.link + "'class='pintime' target='_blank'>Website</a><br/>";
                 } else if (!pin.link) {
                     linkCheck = "";
                 };
@@ -750,11 +871,10 @@
 
                 var videoCheckB = "";
                 if (pin.videoLink) {
-                    videoCheckB = "<div class='mySlides fade'><iframe id='vidF' width='720' height='480' src='" + pin.videoLink + "'frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe><div>";
+                    videoCheckB = "<div class='imgApt'><iframe id='vidF' class='responsiveIframe' src='" + pin.videoLink + "' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";
                 } else if (!pin.videoLink) {
                     videoCheckB = "";
                 };
-
 
                 var imageCheckB = "";
                 if (pin.imageName) {
@@ -779,7 +899,7 @@
 
                 var opentimeB = "";
                 if (pin.openingTimes) {
-                    opentimeB = "<span class='pintime'>" + pin.openingTimes + "<br/>";
+                    opentimeB = "<span class='overtime'>" + pin.openingTimes + "<br/>";
                 } else if (!pin.openingTimes) {
                     opentimeB = "";
                 };
@@ -819,16 +939,20 @@
                     phone = "";
                 };
 
+                 var linkCheckB = "";
+                if (pin.link) {
+                    linkCheckB = "<a href ='" + pin.link + "'class='overtime' target='_blank'>Website</a><br/>";
+                } else if (!pin.link) {
+                    linkCheckB = "";
+                };
+
                 // SETUP FOR OVERLAY
 
                 MarkerContainer = document.createElement('div');
                 MarkerContainer.className = `marker ${pin.category}Marker`;
-
-
                 MarkerContainer.addEventListener('click', function () {
 
                     // SLIDESHOW 3 IMAGES or 2 IMAGES 1 VIDEO
-
 
                     if (pin.imageName) {
                         document.getElementById('ContentB').innerHTML = imageCheckB
@@ -854,16 +978,15 @@
 
                     document.getElementById('Content2').innerHTML =
                         nameCheckB +
-                        opentimes + "</br>" +
-                        SDescription +
-                        street + town + pc + phone + "</br>" +
+                        opentimeB + "</br>" +
                         parkingCheck + " " +
                         toiletCheck + " " +
                         wheelchairCheck + " " +
                         foodCheck + " " +
-                        dogCheck + " " +
-                        linkCheck
-
+                        dogCheck + "</br>" +                       
+                        SDescription +
+                         linkCheckB + "</br>" +
+                        street + town + pc + phone                   
                 });
 
                 // CLICKABLE SEA GRASS PINS
@@ -896,8 +1019,6 @@
                 });
 
                 // MARKER POPUP CREATION (WITH ROTATION CSS CHANGE)
-
-                //content.push(MarkerContainer);
                 
                 new mapboxgl.Marker(MarkerContainer)
                     .setLngLat([pin.latitude, pin.longitude])
@@ -912,16 +1033,10 @@
                                                 ${wheelchairCheck}
                                                 ${foodCheck}
                                                 ${dogCheck}
-                                               </div>`))                       
-                    
+                                               </div>`))                     
                     .addTo(map);
-            })          
-         
+            })             
         });
-        
-
-
-        // <button id='overlayBTN' onclick='ShowOverlay()' style='float: right;'><i class='fas fa-expand-alt' aria-hidden='true' style='font-size:24px'></i><button>
 
         //EVENTS POPUP
 
@@ -933,59 +1048,63 @@
                 var nameCheck = "";
                 nameCheck = "<span class='pinHeading'>" + pin.name + "</span><br/>";
 
-                var videoCheck = "";
-                if (pin.videoLink) {
-                    videoCheck = "<iframe id='vidF' width='220' height='160' src='" + pin.videoLink + "'frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe><br>";
-                } else if (!pin.videoLink) {
-                    videoCheck = "";
+                 var imageCheck = "";
+
+                if (pin.showLarge) {
+
+                    if (pin.imageName) {
+                        imageCheck = "<div class='popContainer'><img src='img/photos/" + pin.imageName + "' class='popImg'><div class='expandIcon' id='overlayBUTTON' onclick='ShowOverlay()'><i class='fas fa-expand-alt'></i></div></div><br/>";
+                    } else if (!pin.imageName) {
+                        imageCheck = "";
+                    };
+
+                } else if (!pin.showLarge) {
+
+                    if (pin.imageName) {
+                        imageCheck = "<div class='popContainer'><img src='img/photos/" + pin.imageName + "' class='popImg'></div><br/>";
+                    } else if (!pin.imageName) {
+                        imageCheck = "";
+                    };
                 };
-
-                var imageCheck = "";
-                if (pin.imageName) {
-                    imageCheck = "<img src='img/photos/" + pin.imageName + "' style='width:220px;height:200px;'><br/>";
-
-                } else if (!pin.imageName) {
-                    imageCheck = "";
-                };
-
+              
                 var opentimes = "";
-                if (pin.showOpeningTimes) {
-                    opentimes = pin.openingTimes + "<br/>"
-                } else if (!pin.showOpeningTimes) {
+                if (pin.openingTimes) {
+                    opentimes = "<span class='pintime'>" + pin.openingTimes + "<br/>";
+                } else if (!pin.openingTimes) {
                     opentimes = "";
                 };
 
-                var parkingCheck = "";
+                  var parkingCheck = "";
                 if (pin.parking) {
-                    parkingCheck = "<i class='fas fa-parking' aria-hidden='true' style='font-size:24px'></i>";
+                    parkingCheck = "<i class='fas fa-parking' aria-hidden='true' class='icon'></i>";
                 } else if (!pin.parking) {
                     parkingCheck = "";
                 };
 
                 var toiletCheck = "";
                 if (pin.toilets) {
-                    toiletCheck = "<i class='fas fa-toilet' aria-hidden='true' style='font-size:24px'></i>";
+                    toiletCheck = "<i class='fas fa-toilet' aria-hidden='true' class='icon'></i>";
                 } else if (!pin.toilets) {
                     toiletCheck = "";
                 };
 
                 var wheelchairCheck = "";
                 if (pin.wheelChairAccess) {
-                    wheelchairCheck = "<i class='fas fa-wheelchair' aria-hidden='true'style='font-size:24px'></i>";
+                    wheelchairCheck = "<i class='fas fa-wheelchair' aria-hidden='true' class='icon'></i>";
                 } else if (!pin.wheelChairAccess) {
                     wheelchairCheck = "";
                 };
 
                 var foodCheck = "";
                 if (pin.food) {
-                    foodCheck = "<i class='fas fa-utensils' aria-hidden='true' style='font-size:24px'></i>";
+                    foodCheck = "<i class='fas fa-utensils' aria-hidden='true' class='icon'></i>";
                 } else if (!pin.food) {
                     foodCheck = "";
                 };
 
                 var dogCheck = "";
                 if (pin.dogFriendly) {
-                    dogCheck = "<i class='fas fa-dog' aria-hidden='true' style='font-size:24px'></i>";
+                    dogCheck = "<i class='fas fa-dog' aria-hidden='true' class='icon'></i>";
                 } else if (!pin.dogFriendly) {
                     dogCheck = "";
                 };
@@ -996,17 +1115,17 @@
                 } else if (!pin.link) {
                     linkCheck = "";
                 };
-
+               
                 var SDate = "";
                 if (pin.startDate) {
-                    SDate = "<span class='fontBody'>" + pin.startDate + "</span> - ";
+                    SDate = "<span class='pintime'>" + pin.startDate + "</span> - ";
                 } else if (!pin.startDate) {
                     SDate = "";
                 };
 
                 var EDate = "";
                 if (pin.endDate) {
-                    EDate = "<span class='fontBody'>" + pin.endDate + "</span><br/>";
+                    EDate = "<span class='pintime'>" + pin.endDate + "</span><br/>";
                 } else if (!pin.endDate) {
                     EDate = "";
                 };
@@ -1015,19 +1134,26 @@
 
                 var nameCheckB = "";
                 nameCheckB = "<span class='fontHeading'>" + pin.name + "</span><br/>";
+                                
+                var imageCheckB = "";
+                if (pin.imageName) {
+                    imageCheckB = "<img src='img/photos/" + pin.imageName + "' class='imgApt'>";
+                } else if (!pin.imageName) {
+                    imageCheckB = "";
+                };
+
+                var imageCheckC = "";
+                if (pin.imageName2) {
+                    imageCheckC = "<img src='img/photos/" + pin.imageName2 + "' class='imgApt'>";
+                } else if (!pin.imageName2) {
+                    imageCheckC = "";
+                };
 
                 var videoCheckB = "";
                 if (pin.videoLink) {
-                    videoCheckB = "<iframe id='vidF' width='720' height='480' src='" + pin.videoLink + "'frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe><br>";
+                    videoCheckB = "<div class='imgApt'><iframe id='vidF' class='responsiveIframe' src='" + pin.videoLink + "' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";
                 } else if (!pin.videoLink) {
                     videoCheckB = "";
-                };
-
-                var imageCheckB = "";
-                if (pin.imageName) {
-                    imageCheckB = "<img src='img/photos/" + pin.imageName + "' class='imgApt'><br/>";
-                } else if (!pin.imageName) {
-                    imageCheckB = "";
                 };
 
                 var SDescription = "";
@@ -1037,14 +1163,53 @@
                     SDescription = "";
                 };
 
+                var street = "";
+                if (pin.streetAddress) {
+                    street = "<span class='fontBody'>" + pin.streetAddress + "<br/>";
+                } else if (!pin.streetAddress) {
+                    street = "";
+                };
+
+                var pc = "";
+                if (pin.postcode) {
+                    pc = "<span class='fontBody'>" + pin.postcode + "<br/>";
+                } else if (!pin.postcode) {
+                    pc = "";
+                };
+
+                var town = "";
+                if (pin.streetAddress) {
+                    town = "<span class='fontBody'>" + pin.cityTown + "<br/>";
+                } else if (!pin.cityTown) {
+                    town = "";
+                };
+
+                var phone = "";
+                if (pin.phone) {
+                    phone = "<span class='fontBody'>" + pin.phone + "<br/>";
+                } else if (!pin.phone) {
+                    phone = "";
+                };
+
                 MarkerContainer = document.createElement('div');
                 MarkerContainer.className = `marker ${pin.category}Marker`;
 
                 MarkerContainer.addEventListener('click', function () {
-                    document.getElementById('Content1').innerHTML =
-                        videoCheckB +
-                        imageCheckB
 
+                    if (pin.imageName) {
+                        document.getElementById('ContentB').innerHTML = imageCheckB
+                    }
+                      if (pin.imageName2) {
+                        document.getElementById('ContentC').innerHTML = imageCheckC
+                    } else {
+                        document.getElementById('ContentC').innerHTML = ""
+                    }               
+
+                    if (pin.videoLink) {
+                         document.getElementById('ContentD').innerHTML = videoCheckB
+                     } else {
+                        document.getElementById('ContentD').innerHTML = ""
+                    }
 
                     document.getElementById('Content2').innerHTML =
                         nameCheckB +
@@ -1055,15 +1220,16 @@
                         toiletCheck + " " +
                         wheelchairCheck + " " +
                         foodCheck + " " +
-                        dogCheck + " " +
-                        linkCheck
+                        dogCheck + "</br>" +
+                        linkCheck + "</br>" +
+                        street + town + pc + phone
                 });
 
                 new mapboxgl.Marker(MarkerContainer)
                     .setLngLat([pin.latitude, pin.longitude])
                     .setPopup(new mapboxgl.Popup({ offset: 25 })
                         .setHTML(`<div class="popupContent">
-                                                ${videoCheck}
+                                               
                                                 ${imageCheck}
                                                 ${nameCheck}
                                                 ${SDate}
@@ -1074,16 +1240,11 @@
                                                 ${toiletCheck}
                                                 ${wheelchairCheck}
                                                 ${foodCheck}
-                                                ${dogCheck}
-
-</div>`))
-
+                                                ${dogCheck} </div>`))
                     .addTo(map);
-
             })
         });
-
-
+        
         //ROUTES POPUP
 
         fetch('api/getRoutes').then((res) => {
@@ -1094,9 +1255,15 @@
                 var nameCheck = "";
                 nameCheck = "<span class='pinHeading'>" + pin.name + "</span><br/>";
 
+             if (pin.imageName) {
+                        imageCheck = "<div class='popContainer'><img src='img/photos/" + pin.imageName + "' class='popImg'></div><br/>";
+                    } else if (!pin.imageName) {
+                        imageCheck = "";
+                    };
+  
                 var SDescription = "";
                 if (pin.shortDescription) {
-                    SDescription = "<span class='fontBody'>" + pin.shortDescription + "</span><br/>";
+                    SDescription = "<span class='pintime'>" + pin.shortDescription + "</span><br/>";
                 } else if (!pin.shortDescription) {
                     SDescription = "";
                 };
@@ -1133,17 +1300,43 @@
                     }
                 });
 
+                MarkerContainer.addEventListener('click', function () {
+                    if (pin.name == "Walk 6 - Maidencombe") {
+                        walk6();
+                    }
+                });
+
+                MarkerContainer.addEventListener('click', function () {
+                    if (pin.name == "Walk 7 - Daddyhole") {
+                        walk7();
+                    }
+                });
+
+                MarkerContainer.addEventListener('click', function () {
+                    if (pin.name == "Walk 8 - Occombe Vally Woods") {
+                        walk8();
+                    }
+                });
+
+                MarkerContainer.addEventListener('click', function () {
+                    if (pin.name == "Walk 9 - Broadsands") {
+                        walk9();
+                    }
+                });
+
+                MarkerContainer.addEventListener('click', function () {
+                    if (pin.name == "Walk 10 - Brixham Habour") {
+                        walk10();
+                    }
+                });
 
                 new mapboxgl.Marker(MarkerContainer)
                     .setLngLat([pin.latitude, pin.longitude])
                     .setPopup(new mapboxgl.Popup({ offset: 25 })
                         .setHTML(`<div class="popupContent">
-                                                ${nameCheck} ${SDescription} </div>`))
-
+                        ${imageCheck} ${nameCheck} ${SDescription} </div>`))
                     .addTo(map);
-
             })
-
         });
 
         function ShowOverlay() {
@@ -1153,25 +1346,6 @@
             const popup = document.getElementsByClassName('mapboxgl-popup');
             popup[0].remove();
         };  
-
-        /*
-        var Rclass = "mapboxgl-popup";
-        
-        function popSize() {
-            if (popR) {
-            Rclass = "mapboxgl-popup";
-            console.log("pop1Layout");
-          
-        } else if (!popR) {
-            Rclass = "mapboxgl-popup2";
-                console.log("pop2Layout");
-                for (let i = 0; i < content.length; i++) {
-                    //content[i].className = Rclass;
-                }
-        }
-          //console.log(content.length);
-        }
-        */
 
     </script>
     <script src="js/script.js"></script>
