@@ -5,7 +5,7 @@ const router = express.Router();
 
 var { isAuth } = require('../middleware/isAuth');
 
-const PinPointing = require('../models/PinPoints');
+const PinPoints = require('../models/PinPoints');
 
 const Events = require('../models/Events');
 
@@ -18,7 +18,7 @@ router.post('/addPinPoint', isAuth, (req, res) => {
         const { name, category, streetAddress, cityTown, postcode, phone, longitude, latitude,
             openingTimes, toilets, parking, wheelChairAccess, dogFriendly, shortDescription, link, imageName, imageName2, imageName3, videoLink, showLarge } = req.body;
 
-        pinPoint = new PinPointing({
+        pinPoint = new PinPoints({
             name,
             category,
             streetAddress,
@@ -52,7 +52,7 @@ router.post('/addPinPoint', isAuth, (req, res) => {
 router.get('/getPinPoints', (req, res) => {
     try {
         //PinPoints.find({}, (err, docs) => {
-        PinPointing.find({}, null, {sort: {category: -1}}, function(err, docs) {
+        PinPoints.find({}, null, {sort: {category: -1}}, function(err, docs) {
             if (err) throw err;
             res.status(200).send(docs);
         })
@@ -64,7 +64,7 @@ router.get('/getPinPoints', (req, res) => {
 
 router.delete('/delete/:id', isAuth, (req, res) => {
     try {
-        PinPointing.findOneAndDelete({ _id: req.params.id }, (err) => {
+        PinPoints.findOneAndDelete({ _id: req.params.id }, (err) => {
             if (err) throw err;
             res.status(200).redirect('/admin/dashboard');
         })
@@ -78,7 +78,7 @@ router.post('/update/:id', isAuth, (req, res) => {
     try {
         const { name, category, streetAddress, cityTown, postcode, phone, longitude, latitude,
             openingTimes, toilets, parking, wheelChairAccess, dogFriendly, shortDescription, link, imageName, imageName2, imageName3, videoLink, showLarge } = req.body;
-        PinPointing.findOneAndUpdate({ _id: req.params.id }, {
+        PinPoints.findOneAndUpdate({ _id: req.params.id }, {
             $set: {
                 name, category, streetAddress, cityTown, postcode, phone, longitude, latitude, 
                 openingTimes, toilets, parking, wheelChairAccess, dogFriendly, shortDescription, link, imageName, imageName2, imageName3, videoLink, showLarge
@@ -96,8 +96,8 @@ router.post('/update/:id', isAuth, (req, res) => {
 //EVENT DATA
 router.post('/addEvents', isAuth, (req, res) => {
     try {
-        const { name, category, streetAddress, cityTown, postcode, longitude, latitude, startDate, endDate,
-            openingTimes, shortDescription, toilets, parking, food, wheelChairAccess, dogFriendly, link, imageName } = req.body;
+        const { name, category, streetAddress, cityTown, postcode, longitude, latitude, startDate, endDate, openingTimes,
+            shortDescription, link, imageName, imageName2, videoLink, toilets, parking, food, wheelChairAccess, dogFriendly, showLarge } = req.body;
 
         events = new Events({
             name,
@@ -111,13 +111,17 @@ router.post('/addEvents', isAuth, (req, res) => {
             endDate,
             openingTimes,
             shortDescription,
+            link,
+            imageName,
+            imageName2,
+            videoLink,
             toilets,
             parking,
             food,
             wheelChairAccess,
             dogFriendly,
-            link,
-            imageName
+            showLarge
+          
         });
        events.save();
         res.status(200).redirect('/admin/dashboard');
@@ -157,11 +161,11 @@ router.delete('/deleteEvent/:id', isAuth, (req, res) => {
 router.post('/updateEvent/:id', isAuth, (req, res) => {
     try {
         const { name, category, streetAddress, cityTown, postcode, longitude, latitude, startDate, endDate,
-            openingTimes, shortDescription, toilets, parking, food, wheelChairAccess, dogFriendly, link, imageName } = req.body;
+            openingTimes, shortDescription, link, imageName, imageName2, videoLink, toilets, parking, food, wheelChairAccess, dogFriendly, showLarge } = req.body;
        Events.findOneAndUpdate({ _id: req.params.id }, {
             $set: {
                name, category, streetAddress, cityTown, postcode, longitude, latitude, startDate, endDate,
-               openingTimes, shortDescription, toilets, parking, food, wheelChairAccess, dogFriendly, link, imageName
+               openingTimes, shortDescription, link, imageName, imageName2, videoLink, toilets, parking, food, wheelChairAccess, dogFriendly, showLarge
             }
         }, (err) => {
             if (err) throw err;
@@ -176,14 +180,15 @@ router.post('/updateEvent/:id', isAuth, (req, res) => {
 // ROUTE DATA
 router.post('/addRoutes', isAuth, (req, res) => {
     try {
-        const { name, category, longitude, latitude, shortDescription } = req.body;
+        const { name, category, longitude, latitude, shortDescription, imageName } = req.body;
 
         routes = new Routes({
             name,
             category,
             longitude,
             latitude,
-            shortDescription
+            shortDescription,
+            imageName
         });
         routes.save();
         res.status(200).redirect('/admin/dashboard');
@@ -221,10 +226,10 @@ router.delete('/deleteRoute/:id', isAuth, (req, res) => {
 
 router.post('/updateRoute/:id', isAuth, (req, res) => {
     try {
-        const { name, category, longitude, latitude, shortDescription } = req.body;
+        const { name, category, longitude, latitude, shortDescription, imageName } = req.body;
         Routes.findOneAndUpdate({ _id: req.params.id }, {
             $set: {
-                name, category, longitude, latitude, shortDescription
+                name, category, longitude, latitude, shortDescription, imageName
             }
         }, (err) => {
             if (err) throw err;
