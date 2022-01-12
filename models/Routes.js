@@ -8,6 +8,7 @@ var RoutesSchema = new Schema({
     longitude: String,
     latitude: String,
     shortDescription: String,
+    imageName: String
 });
 
 module.exports = Routes = mongoose.model('Routes', RoutesSchema);
