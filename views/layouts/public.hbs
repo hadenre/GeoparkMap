@@ -244,6 +244,8 @@
                 document.getElementById("GeoKey").style.display = "block";
                 document.getElementById("GeoKey2").style.display = "block";
                 showKG = true; 
+                document.getElementById("infoKey").style.display = "none";
+                showIG = false;
                 }            
         };
 
@@ -254,7 +256,10 @@
                 showIG = false;
             }else if (!showIG) {                           
                 document.getElementById("infoKey").style.display = "block";
-                showIG = true; 
+                showIG = true;
+                document.getElementById("GeoKey").style.display = "none";
+                document.getElementById("GeoKey2").style.display = "none";
+                showKG = false;
                 }            
         };
 
@@ -934,7 +939,7 @@
 
                 var phone = "";
                 if (pin.phone) {
-                    phone = "<span class='fontBody'>" + pin.phone + "<br/>";
+                    phone = "<span class='fontBody'>" + pin.phone + "<br/><br/>";
                 } else if (!pin.phone) {
                     phone = "";
                 };
@@ -1076,7 +1081,7 @@
 
                   var parkingCheck = "";
                 if (pin.parking) {
-                    parkingCheck = "<i class='fas fa-parking' aria-hidden='true' class='icon'></i>";
+                    parkingCheck = "<i class='fas fa-parking ' aria-hidden='true' class='icon'></i>";
                 } else if (!pin.parking) {
                     parkingCheck = "";
                 };
