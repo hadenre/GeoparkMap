@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 var passport = require('passport');
 var cors = require('cors');
 
-/*var allowedOrigins = ['http://localhost:3000', 'https://geopark-beta.herokuapp.com/'];
+var allowedOrigins = ['http://localhost:3000', 'https://geopark-beta.herokuapp.com/'];
 router.use(cors({
     origin: function (origin, callback) {
         // allow requests with no origin 
@@ -20,14 +20,14 @@ router.use(cors({
         return callback(null, true);
     }
 }));
-*/
+
 var { isAuth } = require('../middleware/isAuth');
 require('../middleware/passport')(passport);
 
 const User = require('../models/User');
-const PinPointed = require('../models/PinPoints');
-const Evented = require('../models/Events');
-const Routed = require('../models/Routes');
+const PinPoints = require('../models/PinPoints');
+const Events = require('../models/Events');
+const Routes = require('../models/Routes');
 
 router.use(express.static('www'));
 
@@ -92,15 +92,15 @@ router.get('/signout', isAuth, (req, res) => {
 router.get('/dashboard', isAuth, async (req, res) => {
     try {
         var pinDocuments, eventDocuments, routeDocuments;
-        await PinPointed.find({}, null, {sort:{ category: -1 }}, function(err, pinDocs) {
+        await PinPoints.find({}, null, {sort:{ category: -1, name:1 }}, function(err, pinDocs) {
             if (err) throw err;
             pinDocuments = pinDocs;
         })
-        await Evented.find({}, null, {sort:{ category: -1 }}, function (err, eventDocs) {
+        await Events.find({}, null, { sort: { name: 1} }, function(err, eventDocs) {
             if (err) throw err;
             eventDocuments = eventDocs
         })
-        await Routed.find({}, null, {sort:{ category: -1 }}, function (err, routeDocs) {
+        await Routes.find({}, null, { sort: { name: 1 } }, function(err, routeDocs) {
             if (err) throw err;
             routeDocuments = routeDocs
         })
@@ -118,7 +118,7 @@ router.get('/dashboard', isAuth, async (req, res) => {
 router.get('/dashboard', isAuth, (req, res) => {
     //console.log("getEventsAdmin");
     try {
-        Evented.find({}).lean()
+        Events.find({}).lean()
             .exec((err, pind) => {
                 if (pind.length) {
                     res.status(200).render('adminDashboard', { layout: 'admin', pind: pind, pindExist: true });
