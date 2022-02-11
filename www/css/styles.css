@@ -1327,18 +1327,19 @@ input[type="checkbox"] {
                 font-size: 5vmax;
             }
 
-            .overlay1 {
+          .overlay1 {
                 width: 50%;
                 height: 80%;
                 top: 10%;
-                left: 10%;
+                left: auto;
+                right: 10%;
             }
 
             .overlay2 {
                 width: 28%;
                 height: 80%;
                 top: 10%;
-                right: 10%;
+                left: 10%;
                 line-height: 6px;
             }
 
@@ -1514,14 +1515,15 @@ input[type="checkbox"] {
                 width: 50%;
                 height: 80%;
                 top: 10%;
-                left: 10%;
+                left: auto;
+                right: 10%;
             }
 
             .overlay2 {
                 width: 28%;
                 height: 80%;
                 top: 10%;
-                right: 10%;
+                left: 10%;
                 line-height: 6px;
             }
 
