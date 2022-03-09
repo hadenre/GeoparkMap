@@ -159,13 +159,13 @@
         var Btn7 = document.getElementById('yellowMarkerBTN');
         Btn7.onclick = function () {
             if (showAC) {
-                let markers = document.getElementsByClassName("marker agathaMarker");
+                let markers = document.getElementsByClassName("marker creativeMarker");
                 for (let i = 0; i < markers.length; i++) {
                     markers[i].style.visibility = "hidden";
                     showAC = false;
                 }
             } else {
-                let markers = document.getElementsByClassName("marker agathaMarker");
+                let markers = document.getElementsByClassName("marker creativeMarker");
                 for (let i = 0; i < markers.length; i++) {
                     markers[i].style.visibility = "visible";
                 } showAC = true;
