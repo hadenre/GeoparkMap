@@ -36,6 +36,20 @@
     {{#if pinsExist}}
     <h4>Location Pins: {{data.pinDocs.length}}</h4>
 
+    {{!-- <div class="form-group">
+           {{!--  <label for="category">Category</label>
+            {{!-- <select name="category">
+                {{!-- <option value="">All</option>
+                {{!-- <option value="">Places To Visit</option>
+                {{!-- <option value="thingsToDo">Things To Do</option>
+                 {{!--<option value="placesToEat">Places To Eat</option>
+                 {{!--<option value="rockView">Rock View</option>
+                {{!-- <option value="seaView">Sea View</option>
+                 {{!-- <option value="prearrangedVisits">Can Be Viewed By Prearranged Access Only</option> --}}
+    {{!-- <option value="walksAndCycleRoutes">Walks and Cycle Routes</option> --}}
+    {{!--<option value="natureView">Nature View</option>
+   {{!-- </select>
+{{!--</div>--} --}}
     {{#each data.pinDocs}}
     <div class="pinEntry">
         <h5 class="{{this.category}}-color">{{this.name}}</h5>
@@ -45,7 +59,6 @@
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
             </button>
         </div>
-
     </div>
     <hr>
     <div id="{{this._id}}Modal" class="modal">
@@ -54,13 +67,12 @@
             {{> editPinForm }}
         </div>
     </div>
-
     {{/each}}
     {{else}}
     <h1>No Location Pins</h1>
     {{/if}}
 </div>
-
+<!--MODEL EVENT DATA-->
 <div class="pinsContainer">
     {{#if eventsExist}}
     <h4>Events: {{data.eventDocs.length}}</h4>
@@ -86,7 +98,7 @@
     <h1>No Event Pins</h1>
     {{/if}}
 </div>
-
+<!--MODEL ROUTE DATA-->
 <div class="pinsContainer">
     {{#if routesExist}}
     <h4>Routes: {{data.routeDocs.length}}</h4>
@@ -112,10 +124,8 @@
     <h1>No Route Pins</h1>
     {{/if}}
 </div>
-
 <script>
     var modal;
-
     function loadModal(modalID) {
         modal = document.getElementById(`${modalID}Modal`);
         modal.style.display = "block";
@@ -129,14 +139,11 @@
                 .then(response => location.reload());
         }
     }
-
     var event;
-
     function loadEvent(eventsID) {
         event = document.getElementById(`${eventsID}EventModal`);
         event.style.display = "block";
     }
-
     function deleteEvent(id) {
         var result = confirm("Want to delete this Pin?");
         if (result) {
@@ -146,15 +153,12 @@
                 .then(response => location.reload());
         }
     }
-
     var route;
-
     function loadRoute(routesID) {
         route = document.getElementById(`${routesID}RouteModal`);
         //console.log(route);
         route.style.display = "block";
     }
-
     function deleteRoute(id) {
         var result = confirm("Want to delete this Pin?");
         if (result) {
@@ -164,5 +168,4 @@
                 .then(response => location.reload());
         }
     }
-
 </script>
