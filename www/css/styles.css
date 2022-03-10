@@ -1,191 +1,1674 @@
-:root {
-    --placesToVisit-Color: #63326E;
-    --placesToEat-Color: #FC7A1E;
-    --walks-Color: #9B2915;
-    --ecoFriendly-Color: #7DC95E;
-    --geoAndBio-Color: #3F88C5;
-    --events-Color: #B9A394;
-    --creative-Color: #FFBA01;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-hr{
-    margin-top: 0;
-    margin-bottom: 1.5rem;
+@font-face {
+    font-family: 'OSreg';
+    src: url(opensans-bold.ttf) format('truetype');   
 }
 
-.placesToVisit-color{
-    color: var(--placesToVisit-Color);
+@font-face {
+    font-family: 'OSbold';
+    src: url(opensans-regular.ttf) format('truetype');
 }
 
-.walks-color{
-    color: var(--walks-Color);
+.w-100{
+    width: 100vw;
 }
 
-.placesToEat-color{
-    color: var(--placesToEat-Color);
+#overlayBTN {
+    padding: 5px 5px;
+    font-size: 115%;
+    background-color: grey;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    color: #fff;
 }
 
-.ecoFriendly-color {
-    color: var(--ecoFriendly-Color);
-}
-
-.events-color{
-    color: var(--events-Color);
-}
-
-.geoAndBio-color{
-    color: var(--geoAndBio-Color);
-}
-
-.creative-color {
-    color: var(--creative-Color);
-}
-
-.adminHeader{
-    padding: 10px 0px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-textarea {
-    resize: none;
-}
-
-.pinsContainer{
-    border-radius: 15px;
-    border: 1px solid #ccc;
+#menuBTN:hover{
     background-color: #fff;
-    padding: 40px;
-}
-
-.pinEntry{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.EventEntry {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.RouteEntry {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
-#addPinPoint{
-    display: grid;
-    grid-template-columns: 33% 33% 34%;
-    grid-column-gap: 10px;
-}
-
-#addEvents {
-    display: grid;
-    grid-template-columns: 33% 33% 34%;
-    grid-column-gap: 10px;
-}
-
-
-#addRoutes {
-    display: grid;
-    grid-template-columns: 33% 33% 34%;
-    grid-column-gap: 10px;
-}
-
-.checkBoxContainer{
-    display: flex;
-    flex-direction: row;
-}
-
-
-.modal {
-    display: none;
-    position: fixed; 
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4);
-  }
-  
- 
-  .modal-content {
-    background-color: #fefefe;
-    margin: 40px auto;
-    padding: 40px;
-    border-radius: 15px;
-    border: 1px solid #ccc;
-    width: 50%;
-  }
-
-.Events {
-    display: none; 
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4);
-}
-
-.Events-content {
-    background-color: #fefefe;
-    margin: 40px auto;
-    padding: 40px;
-    border-radius: 15px;
-    border: 1px solid #ccc;
-    width: 50%;
-}
-
-.Routes {
-    display: none;
-    position: fixed; 
-    z-index: 1; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
-}
-
-.Routes-content {
-    background-color: #fefefe;
-    margin: 40px auto;
-    padding: 40px;
-    border-radius: 15px;
-    border: 1px solid #ccc;
-    width: 50%;
-}
-  
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
+    color: #ee9922;
+    border-color: #ee9922;
     cursor: pointer;
-  }
+}
+
+#keyBTN:hover {
+    background-color: #fff;
+    color: #ee9922;
+    border-color: #ee9922;
+    cursor: pointer;
+}
+
+#infoBTN:hover {
+    background-color: #fff;
+    color: #ee9922;
+    border-color: #ee9922;
+    cursor: pointer;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.marker{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.marker.placesToVisitMarker{
+        background-size: contain;
+        background-image: url('../img/markers/placesToVisitMarker.png');
+    }
+.marker.placesToEatMarker {
+        background-size: contain;
+        background-image: url('../img/markers/placesToEatMarker.png');
+    }
+.marker.walksMarker {
+        background-size: contain;
+        background-image: url('../img/markers/walksMarker.png');
+    }
+.marker.ecoFriendlyMarker {
+        background-size: contain;
+        background-image: url('../img/markers/recyclingMarker.png');
+    }
+.marker.geoAndBioMarker {
+        background-size: contain;
+        background-image: url('../img/markers/natureViewMarker.png');
+    }
+.marker.eventsMarker {
+        background-size: contain;
+        background-image: url('../img/markers/eventsMarker.png');
+    }
+.marker.creativeMarker {
+        background-size: contain;
+        background-image: url('../img/markers/creativeMarker.png');
+    }
+
+.hideMarker{
+    display: none;
+}
+
+.markerBTN:hover {
+    cursor: pointer;
+}
+#blueMarkerBTN {
+    background-color: #3F88C5;
+}
+#redMarkerBTN {
+    background-color:#9B2915;
+}
+#greenMarkerBTN {
+    background-color: #7DC95E;
+}
+#purpleMarkerBTN {
+    background-color: #63326E;
+}
+#orangeMarkerBTN {
+    background-color: #FC7A1E;
+}
+#greyMarkerBTN {
+    background-color: #B9A394;
+}
+#yellowMarkerBTN {
+    background-color: #FFBA01;
+}
+
+#BoundBTN {
+    background-color: #3E8B94;
+}
+
+/*  SQUARED RADIO MENU BUTTONS */
+
+input[type="radio"] {
+    display: none;
+}
+input[type="checkbox"] {
+    display: none;
+}
+
+ .radio-toolbar input[type="radio"] {
+        opacity: 0;
+        position: relative;
+        width: 0;
+    }
+
+ .radio-toolbar label:hover {
+       background-color: #70aeb9;
+    }
+
+ .radio-toolbar input[type="radio"]:checked + label {
+        background-color: #9cb73c;
+    }
+
+ .radio-toolbar input[type="checkbox"]:checked + label {
+        background-color: #9cb73c;
+    }
+ 
+.introContainer {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    max-width: 80vw;
+    max-height: 80vh;
+    top: 10%;
+    left: 10%;
+    object-fit: contain;
+    z-index: 14;    
+}
+
+.introImage {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 50%;
+    max-width: 80vw;
+    max-height: 80vh;
+    object-fit: contain;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.introBG {
+    position: fixed;
+    background: #000000;
+    opacity: 0.7;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    display: block;
+    overflow: hidden;
+}
+
+.overlayBUTTON {
+    background: transparent;
+    border: none !important;
+    font-size: 0;
+    border-radius: 0px;
+    padding: 0px;
+}
+
+.overlayBG {
+    position: fixed;
+    background: #000000;
+    opacity: 0.7;
+    width: 100%;
+    height: 100%;
+    z-index: 11;   
+    display: none;
+}
+
+.imgAptPOLL {
+    position: relative;
+    width: 100%;
+    height: auto;
+    object-position: 50%100%;
+    object-fit: cover;
+}
+
+.KeyGeo {
+    position: absolute;
+    width: 90%;
+    height: auto;
+    top: 10%;
+    left: 5%;
+    max-width: 90vw;
+    object-fit: contain;
+    z-index: 1;
+    display: none;
+}
+
+.container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.mapboxgl-popup {
+    width: 300px;
+    z-index: 105;
+}
+
+.popContainer {
+    width: 220px;
+    height: 220px;
+}
+
+.popImg {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50%100%;
+}
+
+.expandIcon {
+    position: absolute;
+    color: white;
+    font-size: 150px;
+    top: 50px;
+    left: 50px;
+    text-align: center;
+    transition: .3s ease;
+    opacity: 0;
+}
+
+    .expandIcon:hover {
+        opacity: 0.7;
+    }
+
+.responsiveIframe {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.keyContainer {
+    width: 100%;
+    padding-top: 10px;
+    margin: 0 auto;
+    display: inline-flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.markerBTN {
+    display: inline-table;
+    width: 13vmax;
+    height: 7vmax;
+    padding: 10px 10px;
+    background-color: grey;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    color: #fff;
+    z-index: 4;
+    margin: 0 auto;
+    text-align: center;
+    font-family: OSreg;
+    font-size: 20px;
+}
+
+.fontBody {
+    font-size: 20px;
+    font-family: Roboto;
+    line-height: 0.2px;
+    color: #000000;
+}
+
+.fontHeading {
+    font-size: 40px;
+    text-align: center;
+    font-family: Roboto;
+    color: #000000;
+    line-height: 0.2px;
+    font-weight: bold;
+}
+
+.pintime {
+    font-size: 20px;
+    font-family: Roboto;
+    color: #000000;
+    line-height: 2px;
+}
+
+.overtime {
+    font-family: Roboto;
+    color: #000000;
+    font-size: 20px;
+    line-height: 1px;
+}
+
+.pinHeading {
+    font-size: 28px;
+    font-family: Roboto;
+    color: #000000;
+    line-height: 2px;
+    font-weight: bold;
+}
+
+.icon {
+    font-size: 24px
+}
+
+.mapboxgl-popup-content {
+    text-align: center;
+    font-family: Roboto;
+    border: 1px solid #ee9922;
+    padding: 10px;
+    width: 100%;
+    line-height: 28px;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    margin: 15px
+}
+
+.menu {
+    position: absolute;
+    left: 0;
+    bottom:0;
+    width: 100%;
+    height: 25%;
+    background-color: #fff;
+    border-top: 5px solid #ee9922;
+    transition: bottom 0.5s ease-in-out;
+    z-index: 2;
+}
+
+.menu-closed {
+    bottom: -25%;
+    transition: bottom 0.5s ease-in-out;
+}
+
+#menuBTN {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+    padding: 10px 20px;
+    font-size: 115%;
+    background-color: transparent;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    color: #fff;
+}
+
+.mySlides {
+    display: none;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 80%;
+    width: auto;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 5vmax;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    z-index: 14;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+    .prev:hover, .next:hover {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+.overlay1 {
+    position: absolute;
+    display: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 80%;
+    top: 10%;
+    right: 10%;
+    bottom: 10%;
+    background-color: rgba(255, 255, 255, 0.3);
+    z-index: 12;
+    cursor: pointer;
+    display: none;
+}
+
+.overlay2 {
+    position: absolute;
+    display: none;
+    width: 28%;
+    height: 80%;
+    top: 10%;
+    left:10%;
+    padding: 10px;
+    background-color: #d7d7d7;
+    z-index: 12;
+    cursor: pointer;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+.overlay_a {
+    justify-content: center;
+    text-decoration: none;
+    padding:10px;
+    margin: 10px;
+    font-size: 50px;
+    font-family: Roboto;
+    color: #000000;
+    display: block;
+    transition: 0.3s;
+    text-align: center;
+    line-height: 35px;
+    overflow-y: hidden;
+}
+
+.overlay-content {
+    position: relative;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    text-align: center;
+    display: block;
+    width: 100%;
+}
+
+.fontTime {
+    font-size: 3vmin;
+    font-family: OSbold;
+    line-height: 0.5;
+    color: #000000;
+}
+
+.imgApt {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.GkeyContainer {
+    position: absolute;
+    width: 330px;
+    height: 390px;
+    top: 20%;
+    left: 10px;
+    display: inline-block;
+    z-index: 9;
+    background-color: rgba(255, 255, 255, 1);
+    vertical-align: middle;
+    display: none;
+}
+
+.GkeyContainer2 {
+    position: absolute;
+    width: 270px;
+    height: 390px;
+    top: 20%;
+    left: 350px;
+    display: inline-block;
+    z-index: 9;
+    background-color: rgba(255, 255, 255, 1);
+    vertical-align: middle;
+    display: none;
+}
+
+.IkeyContainer {
+    position: absolute;
+    width: 400px;
+    height: 390px;
+    top: 20%;
+    left: 10px;
+    display: inline-block;
+    z-index: 9;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 1);
+    vertical-align: middle;
+    display: none;
+}
+
+.keyText {
+    vertical-align: middle;
+    font-size: 14px;
+    font-family: Roboto;
+    color: #000000;
+    line-height: 14px;
+    display: inline-block;
+}
+
+.keyText2 {
+    vertical-align: middle;
+    font-size: 15px;
+    font-family: Roboto;
+    color: #000000;
+    line-height: 15px;
+    display: inline-block;
+}
+
+.keyImg {
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+    vertical-align: middle;
+}
+
+#keyBTN {
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    z-index: 10;
+    padding: 5px 10px;
+    font-size: 115%;
+    background-color: transparent;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    color: #fff;
+    display: none;
+}
+
+#infoBTN {
+    position: absolute;
+    top: 60px;
+    left: 200px;
+    z-index: 10;
+    padding: 5px 10px;
+    font-size: 115%;
+    background-color: transparent;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    color: #fff;
+    display: none;
+}
+
+.MessageInfo {
+    top: 0%;
+    left: 0%;
+    position: absolute;
+    font-weight: bold;
+    font-family: Roboto;
+    color: white;
+    object-fit: contain;
+    z-index: 15;
+    font-size: 30px;
+}
+
+.introX {
+    position: absolute;
+    cursor: pointer;
+    top: 0%;
+    right: 0%;
+    color: white;
+    padding: 10px 20px;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    user-select: none;
+    z-index: 15;
+    object-fit: contain;
+    font-size: 30px;
+}
+
+        .introX:hover {
+            background-color: #fff;
+            color: #ee9922;
+            border-color: #ee9922;
+            cursor: pointer;
+        }
+
+.radio-toolbar {
+    position: relative;
+    margin: 10px;
+    z-index: 4;
+    display: inline-grid;
+    width: 200px;
+    height: 40px;
+}
+
+    .radio-toolbar label {
+        background-color: #3E8B94;
+        line-height: 80px;
+        text-align: center;
+        font-family: OSreg;
+        font-size: 18px;
+        color: #fff;
+    }
+
+.fern {
+    float: left;
+    width: 400px;
+    height: 420px;
+    position: absolute;
+    left: -5px;
+    bottom: -50px;
+    z-index: 3;
+}
+
+.flower {
+    float: right;
+    width: 700px;
+    height: 700px;
+    position: absolute;
+    right: 10px;
+    bottom: -350px;
+    z-index: 3;
+}
+
+
+/*----------------------------------------------------------------------------------*/
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+    .logo {
+        width: 50px;
+        margin: 10px
+    }
+
+    .menu {
+        height: 25%;
+    }
+
+    .menu-closed {
+        bottom: -25%;
+    }
+
+    .mapboxgl-popup {
+        width: 150px;
+    }
+
+    .popContainer {
+        width: 130px;
+        height: 130px;
+    }
+
+    .expandIcon {
+        font-size: 90px;
+        top: 35px;
+        left: 35px;
+    }
+
+    .markerBTN {
+        width: 13%;
+        height: 5vmax;
+        padding: 3px 3px;
+        border-radius: 3px;
+        font-size: 6px;
+    }
+
+    .keyContainer {
+        padding-top: 5px;        
+        display: flex;
+        flex-wrap:wrap;
+    }
+    
+    .markerBTN {
+        position: relative;
+        display:inline-block;       
+        width: 25%;
+        height: 7vmax;
+        font-size: 8px;
+    }
+
+    .menuBTN {
+        top: 10px;
+        left: 10px;
+        font-size: 10px;
+    }
+
+    .keyBTN {
+        top: 40px;
+        left: 10px;
+        font-size: 10px;
+    }
+
+    .infoBTN {
+        top: 40px;
+        left: 120px;
+        font-size: 10px;
+    }
+
+    .prev, .next {
+        top: 50%;
+        font-size: 5vmax;
+    }
+
+    .overlay1 {
+        width: 80%;
+        height: 45%;
+        top: 10%;
+        left: 10%;
+    }
+
+    .overlay2 {
+        width: 80%;
+        height: 40%;
+        top: 50%;
+        right: 10%;
+        line-height: 6px;
+    }
+
+    .GkeyContainer {
+        width: 180px;
+        height: 280px;
+        top: 17%;
+        left: 3%;
+    }
+
+    .GkeyContainer2 {
+        width: 150px;
+        height: 280px;
+        top: 17%;
+        left: 50%;
+    }
+
+    .IkeyContainer {
+        width: 190px;
+        height: 330px;
+        top: 17%;
+        left: 3%;
+    }
+
+    .keyText {
+        font-size: 7px;
+        line-height: 6px;
+    }
+
+    .keyText2 {
+        font-size: 10px;
+        line-height: 9px;
+    }
+
+    .keyImg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .MessageInfo {
+        font-size: 125%;
+        top: 10%;
+    }
+
+    .introX {
+        top: 10%;
+        font-size: 125%;
+    }
+
+    .radio-toolbar {
+        margin: 5px;
+        width: 20%;
+        height: 30px;
+    }
+
+   .radio-toolbar label {
+       line-height: 20px;
+       font-size: 10px;
+   }
+
+    .fontBody {
+        font-size: 15px;
+        line-height: 0.5px;
+    }
+
+    .fontHeading {
+        font-size: 30px;
+        line-height: 0.5px;
+    }
+
+    .pintime {
+        font-size: 15px;
+        line-height: 0.5px;
+    }
+
+    .overtime {
+        font-size: 17px;
+        line-height: 1px;
+    }
+
+    .pinHeading {
+        font-size: 21px;
+        line-height: 1px;
+    }
+
+    .icon {
+        font-size: 15px
+    }
+
+    .fern {
+        width: 200px;
+        height: 200px;
+        left: -80px;
+        bottom: -10px
+    }
+
+    .flower {
+        width: 250px;
+        height: 250px;
+        right: -60px;
+        bottom: -80px
+    }
+}
+
+@media only screen and (max-width: 600px) and (orientation:landscape) {
+
+    .menu {
+        height: 40%;
+    }
+
+    .menu-closed {
+        bottom: -40%;
+    }
+}
+
+        /* Small devices (portrait tablets and large phones, 600px and up) */
+        @media only screen and (min-width: 600px) {
+            .logo {
+                width: 50px;
+                margin: 10px
+            }
+
+            .menu {
+                height: 25%;
+            }
+
+            .menu-closed {
+                bottom: -25%;
+            }
+
+            .mapboxgl-popup {
+                width: 150px;
+            }
+
+            .popContainer {
+                width: 130px;
+                height: 130px;
+            }
+
+            .expandIcon {
+                font-size: 90px;
+                top: 35px;
+                left: 35px;
+            }
+
+            .markerBTN {
+                width: 13%;
+                height: 5vmax;
+                padding: 3px 3px;
+                border-radius: 3px;
+                font-size: 6px;
+            }
+
+            .keyContainer {
+                padding-top: 5px;
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .markerBTN {
+                position: relative;
+                display: inline-block;
+                width: 25%;
+                height: 7vmax;
+                font-size: 8px;
+            }
+
+            .menuBTN {
+                top: 10px;
+                left: 10px;
+                font-size: 10px;
+            }
+
+            .keyBTN {
+                top: 40px;
+                left: 10px;
+                font-size: 10px;
+            }
+
+            .infoBTN {
+                top: 40px;
+                left: 120px;
+                font-size: 10px;
+            }
+
+            .prev, .next {
+                top: 50%;
+                font-size: 5vmax;
+            }
+
+            .overlay1 {
+                width: 80%;
+                height: 45%;
+                top: 10%;
+                left: 10%;
+            }
+
+            .overlay2 {
+                width: 80%;
+                height: 40%;
+                top: 50%;
+                right: 10%;
+                line-height: 6px;
+            }
+
+            .GkeyContainer {
+                width: 180px;
+                height: 280px;
+                top: 17%;
+                left: 3%;
+            }
+
+            .GkeyContainer2 {
+                width: 150px;
+                height: 280px;
+                top: 17%;
+                left: 50%;
+            }
+
+            .IkeyContainer {
+                width: 190px;
+                height: 330px;
+                top: 17%;
+                left: 3%;
+            }
+
+            .keyText {
+                font-size: 7px;
+                line-height: 6px;
+            }
+
+            .keyText2 {
+                font-size: 10px;
+                line-height: 9px;
+            }
+
+            .keyImg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .MessageInfo {
+                font-size: 125%;
+                top: 10%;
+            }
+
+            .introX {
+                top: 10%;
+                font-size: 125%;
+            }
+
+            .radio-toolbar {
+                margin: 5px;
+                width: 20%;
+                height: 30px;
+            }
+
+                .radio-toolbar label {
+                    line-height: 20px;
+                    font-size: 10px;
+                }
+
+            .fontBody {
+                font-size: 15px;
+                line-height: 0.5px;
+            }
+
+            .fontHeading {
+                font-size: 30px;
+                line-height: 0.5px;
+            }
+
+            .pintime {
+                font-size: 15px;
+                line-height: 0.5px;
+            }
+
+            .overtime {
+                font-size: 17px;
+                line-height: 1px;
+            }
+
+            .pinHeading {
+                font-size: 21px;
+                line-height: 1px;
+            }
+
+            .icon {
+                font-size: 15px
+            }
+
+            .fern {
+                width: 200px;
+                height: 200px;
+                left: -80px;
+                bottom: -10px
+            }
+
+            .flower {
+                width: 250px;
+                height: 250px;
+                right: -60px;
+                bottom: -80px
+            }
+        }
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) and (orientation:landscape) {
+
+    .menu {
+        height: 40%;
+    }
+
+    .menu-closed {
+        bottom: -40%;
+    }
+
+}
+
+    /* Medium devices (landscape tablets, 768px and up) */
+    @media only screen and (min-width: 768px) {
+
+        .logo {
+            width: 50px;
+            margin: 10px
+        }
+
+        .menu {
+            height: 25%;
+        }
+
+        .menu-closed {
+            bottom: -25%;
+        }
+
+        .mapboxgl-popup {
+            width: 150px;
+        }
+
+        .popContainer {
+            width: 130px;
+            height: 130px;
+        }
+
+        .expandIcon {
+            font-size: 90px;
+            top: 35px;
+            left: 35px;
+        }
+
+        .markerBTN {
+            padding: 3px 3px;
+            border-radius: 3px;
+            font-size: 12px;
+            position: relative;
+            display: inline-block;
+            width: 25%;
+            height: 7vmax;
+        }
+
+        .keyContainer {
+            padding-top: 5px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .menuBTN {
+            top: 10px;
+            left: 10px;
+            font-size: 10px;
+        }
+
+        .keyBTN {
+            top: 40px;
+            left: 10px;
+            font-size: 10px;
+        }
+
+        .infoBTN {
+            top: 40px;
+            left: 120px;
+            font-size: 10px;
+        }
+
+        .prev, .next {
+            top: 50%;
+            font-size: 5vmax;
+        }
+
+        .overlay1 {
+            width: 80%;
+            height: 45%;
+            top: 10%;
+            left: 10%;
+        }
+
+        .overlay2 {
+            width: 80%;
+            height: 40%;
+            top: 50%;
+            right: 10%;
+            line-height: 6px;
+        }
+
+        .GkeyContainer {
+            width: 180px;
+            height: 280px;
+            top: 17%;
+            left: 3%;
+        }
+
+        .GkeyContainer2 {
+            width: 150px;
+            height: 280px;
+            top: 17%;
+            left: 50%;
+        }
+
+        .IkeyContainer {
+            width: 190px;
+            height: 330px;
+            top: 17%;
+            left: 3%;
+        }
+
+        .keyText {
+            font-size: 7px;
+            line-height: 6px;
+        }
+
+        .keyText2 {
+            font-size: 10px;
+            line-height: 9px;
+        }
+
+        .keyImg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .MessageInfo {
+            font-size: 125%;
+            top: 10%;
+        }
+
+        .introX {
+            top: 10%;
+            font-size: 125%;
+        }
+
+        .radio-toolbar {
+            margin: 5px;
+            width: 20%;
+            height: 30px;
+        }
+
+            .radio-toolbar label {
+                line-height: 20px;
+                font-size: 10px;
+            }
+
+        .fontBody {
+            font-size: 15px;
+            line-height: 0.5px;
+        }
+
+        .fontHeading {
+            font-size: 30px;
+            line-height: 0.5px;
+        }
+
+        .pintime {
+            font-size: 15px;
+            line-height: 0.5px;
+        }
+
+        .overtime {
+            font-size: 17px;
+            line-height: 1px;
+        }
+
+        .pinHeading {
+            font-size: 21px;
+            line-height: 1px;
+        }
+
+        .icon {
+            font-size: 15px
+        }
+
+        .fern {
+            width: 200px;
+            height: 200px;
+            left: -80px;
+            bottom: -10px
+        }
+
+        .flower {
+            width: 250px;
+            height: 250px;
+            right: -60px;
+            bottom: -80px
+        }
+    }
+
+
+@media only screen and (min-width: 768px) and (orientation:landscape) {
+
+    .menu {
+        height: 40%;
+    }
+
+    .menu-closed {
+        bottom: -40%;
+    }
+}
+    /* Large devices (laptops/desktops, 992px and up) */
+    @media only screen and (min-width: 992px) {
+
+        .logo {
+            width: 100px;
+            margin: 15px;
+        }
+
+        .menu {
+            height: 25%;
+        }
+
+        .menu-closed {
+            bottom: -25%;
+        }
+
+        .mapboxgl-popup {
+            width: 300px;
+        }
+
+        .popContainer {
+            width: 220px;
+            height: 220px;
+        }
+
+        .expandIcon {
+            font-size: 150px;
+            top: 50px;
+            left: 50px;
+        }
+
+        .markerBTN {
+            width: 13vmax;
+            height: 7vmax;
+            padding: 10px 10px;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+
+        .keyContainer {
+            padding-top: 10px;
+            display: inline-flex;
+            flex-wrap: nowrap;
+        }
+
+        .menuBTN {
+            top: 10px;
+            left: 10px;
+            font-size: 115%;
+        }
+
+        .keyBTN {
+            top: 60px;
+            left: 10px;
+            font-size: 115%;
+        }
+
+        .infoBTN {
+            top: 60px;
+            left: 200px;
+            font-size: 115%;
+        }
+
+        .prev, .next {
+            top: 80%;
+            font-size: 5vmax;
+        }
+
+        .overlay1 {
+            width: 50%;
+            height: 80%;
+            top: 10%;
+            left: auto;
+            right: 10%;
+        }
+
+        .overlay2 {
+            width: 28%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            line-height: 6px;
+        }
+
+        .GkeyContainer {
+            width: 330px;
+            height: 390px;
+            top: 20%;
+            left: 10px;
+        }
+
+        .GkeyContainer2 {
+            width: 270px;
+            height: 390px;
+            top: 20%;
+            left: 350px;
+        }
+
+        .IkeyContainer {
+            width: 400px;
+            height: 390px;
+            top: 20%;
+            left: 10px;
+        }
+
+        .keyText {
+            font-size: 14px;
+            line-height: 14px;
+        }
+
+        .keyText2 {
+            font-size: 15px;
+            line-height: 15px;
+        }
+
+        .keyImg {
+            width: 30px;
+            height: 30px;
+        }
+
+        .MessageInfo {
+            font-size: 30px;
+            top: 0%;
+        }
+
+        .introX {
+            top: 0%;
+            font-size: 30px;
+        }
+
+        .radio-toolbar {
+            margin: 10px;
+            width: 200px;
+            height: 40px;
+        }
+
+            .radio-toolbar label {
+                line-height: 80px;
+                font-size: 15px;
+            }
+
+        .fontBody {
+            font-size: 20px;
+            line-height: 0.2px;
+        }
+
+        .fontHeading {
+            font-size: 40px;
+            line-height: 0.2px;
+        }
+
+        .pintime {
+            font-size: 20px;
+            line-height: 2px;
+        }
+
+        .overtime {
+            font-size: 20px;
+            line-height: 1px;
+        }
+
+        .pinHeading {
+            font-size: 28px;
+            line-height: 2px;
+        }
+
+        .icon {
+            font-size: 24px
+        }
+
+        .fern {
+            width: 250px;
+            height: 250px;
+            left: -80px;
+            bottom: -10px
+        }
+
+        .flower {
+            width: 300px;
+            height: 300px;
+            right: -10px;
+            bottom: -80px
+        }
+    }
+@media only screen and (min-width: 992px) and (orientation:landscape) {
+
+    .menu {
+        height: 40%;
+    }
+
+    .menu-closed {
+        bottom: -40%;
+    }
+}
+
+    /* Extra large devices (large laptops and desktops, 1200px and up) */
+    @media only screen and (min-width: 1200px) {
+        .logo {
+            width: 100px;
+            margin: 15px;
+        }
+
+        .menu {
+            height: 25%;
+        }
+
+        .menu-closed {
+            bottom: -25%;
+        }
+
+        .mapboxgl-popup {
+            width: 300px;
+        }
+
+        .popContainer {
+            width: 220px;
+            height: 220px;
+        }
+
+        .expandIcon {
+            font-size: 150px;
+            top: 50px;
+            left: 50px;
+        }
+
+        .markerBTN {
+            width: 13vmax;
+            height: 7vmax;
+            padding: 10px 10px;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .keyContainer {
+            padding-top: 10px;
+            display: inline-flex;
+            flex-wrap: nowrap;
+        }
+
+        .menuBTN {
+            top: 10px;
+            left: 10px;
+            font-size: 115%;
+        }
+
+        .keyBTN {
+            top: 60px;
+            left: 10px;
+            font-size: 115%;
+        }
+
+        .infoBTN {
+            top: 60px;
+            left: 200px;
+            font-size: 115%;
+        }
+
+        .prev, .next {
+            top: 80%;
+            font-size: 5vmax;
+        }
+
+        .overlay1 {
+            width: 50%;
+            height: 80%;
+            top: 10%;
+            left: auto;
+            right: 10%;
+        }
+
+        .overlay2 {
+            width: 28%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            line-height: 6px;
+        }
+
+        .GkeyContainer {
+            width: 330px;
+            height: 390px;
+            top: 20%;
+            left: 10px;
+        }
+
+        .GkeyContainer2 {
+            width: 270px;
+            height: 390px;
+            top: 20%;
+            left: 350px;
+        }
+
+        .IkeyContainer {
+            width: 400px;
+            height: 390px;
+            top: 20%;
+            left: 10px;
+        }
+
+        .keyText {
+            font-size: 14px;
+            line-height: 14px;
+        }
+
+        .keyText2 {
+            font-size: 15px;
+            line-height: 15px;
+        }
+
+        .keyImg {
+            width: 30px;
+            height: 30px;
+        }
+
+        .MessageInfo {
+            font-size: 30px;
+            top: 0%;
+        }
+
+        .introX {
+            top: 0%;
+            font-size: 30px;
+        }
+
+        .radio-toolbar {
+            margin: 10px;
+            width: 200px;
+            height: 40px;
+        }
+
+            .radio-toolbar label {
+                line-height: 80px;
+                font-size: 18px;
+            }
+
+        .fontBody {
+            font-size: 20px;
+            line-height: 0.2px;
+        }
+
+        .fontHeading {
+            font-size: 40px;
+            line-height: 0.2px;
+        }
+
+        .pintime {
+            font-size: 20px;
+            line-height: 2px;
+        }
+
+        .overtime {
+            font-size: 20px;
+            line-height: 1px;
+        }
+
+        .pinHeading {
+            font-size: 28px;
+            line-height: 2px;
+        }
+
+        .icon {
+            font-size: 24px
+        }
+
+        .fern {
+            width: 300px;
+            height: 320px;
+            left: -5px;
+            bottom: -50px
+        }
+
+        .flower {
+            width: 600px;
+            height: 600px;
+            right: 10px;
+            bottom: -350px
+        }
+    }            
