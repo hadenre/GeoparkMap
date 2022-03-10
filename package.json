@@ -23,4 +23,5 @@
   "devDependencies": {
     "nodemon": "^2.0.15"
   }
+  "resolutions": { "fs-capacitor": "3.0.0" }
 }
