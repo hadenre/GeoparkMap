@@ -36,21 +36,6 @@
     {{#if pinsExist}}
     <h4>Location Pins: {{data.pinDocs.length}}</h4>
 
-    {{!-- <div class="form-group">
-           {{!--  <label for="category">Category</label>
-            {{!-- <select name="category">
-                {{!-- <option value="">All</option>
-                {{!-- <option value="">Places To Visit</option>
-                {{!-- <option value="thingsToDo">Things To Do</option>
-                 {{!--<option value="placesToEat">Places To Eat</option>
-                 {{!--<option value="rockView">Rock View</option>
-                {{!-- <option value="seaView">Sea View</option>
-                 {{!-- <option value="prearrangedVisits">Can Be Viewed By Prearranged Access Only</option> --}}
-    {{!-- <option value="walksAndCycleRoutes">Walks and Cycle Routes</option> --}}
-    {{!--<option value="natureView">Nature View</option>
-   {{!-- </select>
-{{!--</div>--} --}}
-
     {{#each data.pinDocs}}
     <div class="pinEntry">
         <h5 class="{{this.category}}-color">{{this.name}}</h5>
@@ -75,8 +60,6 @@
     <h1>No Location Pins</h1>
     {{/if}}
 </div>
-
-<!--MODEL EVENT DATA-->
 
 <div class="pinsContainer">
     {{#if eventsExist}}
@@ -103,8 +86,6 @@
     <h1>No Event Pins</h1>
     {{/if}}
 </div>
-
-<!--MODEL ROUTE DATA-->
 
 <div class="pinsContainer">
     {{#if routesExist}}
@@ -183,7 +164,5 @@
                 .then(response => location.reload());
         }
     }
-
-
 
 </script>
