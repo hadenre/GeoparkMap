@@ -19,7 +19,7 @@ var dotenv = require('dotenv');
 dotenv.config();
 
 var port = process.env.PORT;
-var mongoURI = MONGO_URI;
+var mongoURI = process.env.MONGO_URI;
 
 //var port = process.env.PORT || 3000;
 //var mongoURI = process.env.mongoURI || 'mongodb://localhost:27017/geopark';
@@ -48,7 +48,7 @@ app.engine('hbs', handlebars({
 require('./middleware/passport')(passport);
 app.use(
     session({
-        secret: SESSIONSECRET,
+        secret: process.env.SESSIONSECRET,
         resave: true,
         saveUninitialized: true,
         cookie: { maxAge: 6000000 }
