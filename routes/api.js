@@ -96,8 +96,8 @@ router.post('/update/:id', isAuth, (req, res) => {
 //EVENT DATA
 router.post('/addEvents', isAuth, (req, res) => {
     try {
-        const { name, category, streetAddress, cityTown, postcode, longitude, latitude, startDate, endDate, openingTimes,
-            shortDescription, link, imageName, imageName2, videoLink, toilets, parking, food, wheelChairAccess, dogFriendly, showLarge } = req.body;
+        const { name, category, streetAddress, cityTown, postcode, longitude, latitude, startDate, endDate,
+            openingTimes, shortDescription, toilets, parking, food, wheelChairAccess, dogFriendly, link, imageName } = req.body;
 
         events = new Events({
             name,
@@ -111,17 +111,13 @@ router.post('/addEvents', isAuth, (req, res) => {
             endDate,
             openingTimes,
             shortDescription,
-            link,
-            imageName,
-            imageName2,
-            videoLink,
             toilets,
             parking,
             food,
             wheelChairAccess,
             dogFriendly,
-            showLarge
-          
+            link,
+            imageName
         });
        events.save();
         res.status(200).redirect('/admin/dashboard');
@@ -161,11 +157,11 @@ router.delete('/deleteEvent/:id', isAuth, (req, res) => {
 router.post('/updateEvent/:id', isAuth, (req, res) => {
     try {
         const { name, category, streetAddress, cityTown, postcode, longitude, latitude, startDate, endDate,
-            openingTimes, shortDescription, link, imageName, imageName2, videoLink, toilets, parking, food, wheelChairAccess, dogFriendly, showLarge } = req.body;
+            openingTimes, shortDescription, toilets, parking, food, wheelChairAccess, dogFriendly, link, imageName } = req.body;
        Events.findOneAndUpdate({ _id: req.params.id }, {
             $set: {
                name, category, streetAddress, cityTown, postcode, longitude, latitude, startDate, endDate,
-               openingTimes, shortDescription, link, imageName, imageName2, videoLink, toilets, parking, food, wheelChairAccess, dogFriendly, showLarge
+               openingTimes, shortDescription, toilets, parking, food, wheelChairAccess, dogFriendly, link, imageName
             }
         }, (err) => {
             if (err) throw err;
@@ -180,15 +176,14 @@ router.post('/updateEvent/:id', isAuth, (req, res) => {
 // ROUTE DATA
 router.post('/addRoutes', isAuth, (req, res) => {
     try {
-        const { name, category, longitude, latitude, shortDescription, imageName } = req.body;
+        const { name, category, longitude, latitude, shortDescription } = req.body;
 
         routes = new Routes({
             name,
             category,
             longitude,
             latitude,
-            shortDescription,
-            imageName
+            shortDescription
         });
         routes.save();
         res.status(200).redirect('/admin/dashboard');
@@ -226,10 +221,10 @@ router.delete('/deleteRoute/:id', isAuth, (req, res) => {
 
 router.post('/updateRoute/:id', isAuth, (req, res) => {
     try {
-        const { name, category, longitude, latitude, shortDescription, imageName } = req.body;
+        const { name, category, longitude, latitude, shortDescription } = req.body;
         Routes.findOneAndUpdate({ _id: req.params.id }, {
             $set: {
-                name, category, longitude, latitude, shortDescription, imageName
+                name, category, longitude, latitude, shortDescription
             }
         }, (err) => {
             if (err) throw err;

@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 var passport = require('passport');
 var cors = require('cors');
 
-var allowedOrigins = ['https://geopark-beta.herokuapp.com/'];
+var allowedOrigins = ['http://localhost:3000', 'https://geoparkserver.herokuapp.com/'];
 router.use(cors({
     origin: function (origin, callback) {
         // allow requests with no origin 
@@ -92,15 +92,15 @@ router.get('/signout', isAuth, (req, res) => {
 router.get('/dashboard', isAuth, async (req, res) => {
     try {
         var pinDocuments, eventDocuments, routeDocuments;
-        await PinPoints.find({}, null, {sort:{ category: -1, name:1 }}, function(err, pinDocs) {
+        await PinPoints.find({}, null, {sort:{ category: -1 }}, function(err, pinDocs) {
             if (err) throw err;
             pinDocuments = pinDocs;
         })
-        await Events.find({}, null, { sort: { name: 1} }, function(err, eventDocs) {
+        await Events.find({}, (err, eventDocs) => {
             if (err) throw err;
             eventDocuments = eventDocs
         })
-        await Routes.find({}, null, { sort: { name: 1 } }, function(err, routeDocs) {
+        await Routes.find({}, (err, routeDocs) => {
             if (err) throw err;
             routeDocuments = routeDocs
         })
