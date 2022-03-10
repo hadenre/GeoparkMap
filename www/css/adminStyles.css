@@ -5,7 +5,7 @@
     --ecoFriendly-Color: #7DC95E;
     --geoAndBio-Color: #3F88C5;
     --events-Color: #B9A394;
-    --creative-Color: #FFBA01;
+    --agatha-Color: #FFBA01;
 }
 
 hr{
@@ -37,8 +37,8 @@ hr{
     color: var(--geoAndBio-Color);
 }
 
-.creative-color {
-    color: var(--creative-Color);
+.agatha-color {
+    color: var(--agatha-Color);
 }
 
 .adminHeader{
