@@ -497,8 +497,6 @@ input[type="checkbox"] {
 .overlay-content {
     position: relative;
     top: 10px;
-    left: 10px;
-    right: 10px;
     text-align: center;
     display: block;
     width: 100%;
