@@ -1,0 +1,189 @@
+{{!-- Template for admin dashboard --}}
+<div class="adminHeader u-full-width">
+    <h1> Admin Dashboard</h1>
+    <a class="button" href="/admin/signout">Sign Out</a>
+</div>
+
+<div class="addButtons">
+    <button onclick="loadModal('add')">Add Pin</button>
+    <button onclick="loadEvent('add')">Add Event</button>
+    <button onclick="loadRoute('add')">Add Route</button>
+</div>
+
+<!-- Modal DATA PINS-->
+<div id="addModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="this.parentElement.parentElement.style.display = 'none';">&times;</span>
+        {{> addPinForm }}
+    </div>
+</div>
+
+<div id="addEventModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="this.parentElement.parentElement.style.display = 'none';">&times;</span>
+        {{> addEventForm }}
+    </div>
+</div>
+
+<div id="addRouteModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="this.parentElement.parentElement.style.display = 'none';">&times;</span>
+        {{> addRouteForm }}
+    </div>
+</div>
+
+<div class="pinsContainer">
+    {{#if pinsExist}}
+    <h4>Location Pins: {{data.pinDocs.length}}</h4>
+
+    {{!-- <div class="form-group">
+           {{!--  <label for="category">Category</label>
+            {{!-- <select name="category">
+                {{!-- <option value="">All</option>
+                {{!-- <option value="">Places To Visit</option>
+                {{!-- <option value="thingsToDo">Things To Do</option>
+                 {{!--<option value="placesToEat">Places To Eat</option>
+                 {{!--<option value="rockView">Rock View</option>
+                {{!-- <option value="seaView">Sea View</option>
+                 {{!-- <option value="prearrangedVisits">Can Be Viewed By Prearranged Access Only</option> --}}
+    {{!-- <option value="walksAndCycleRoutes">Walks and Cycle Routes</option> --}}
+    {{!--<option value="natureView">Nature View</option>
+   {{!-- </select>
+{{!--</div>--} --}}
+
+    {{#each data.pinDocs}}
+    <div class="pinEntry">
+        <h5 class="{{this.category}}-color">{{this.name}}</h5>
+        <div class="pinButtons">
+            <button onclick="loadModal('{{this._id}}')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button onclick="deletePin('{{this._id}}')">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+        </div>
+
+    </div>
+    <hr>
+    <div id="{{this._id}}Modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="this.parentElement.parentElement.style.display = 'none';">&times;</span>
+            {{> editPinForm }}
+        </div>
+    </div>
+
+    {{/each}}
+    {{else}}
+    <h1>No Location Pins</h1>
+    {{/if}}
+</div>
+
+<!--MODEL EVENT DATA-->
+
+<div class="pinsContainer">
+    {{#if eventsExist}}
+    <h4>Events: {{data.eventDocs.length}}</h4>
+    {{#each data.eventDocs}}
+    <div class="pinEntry">
+        <h5 class="{{this.category}}-color">{{this.name}} {{this.startDate}} - {{this.endDate}}</h5>
+        <div class="pinButtons">
+            <button onclick="loadEvent('{{this._id}}')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button onclick="deleteEvent('{{this._id}}')">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    <hr>
+    <div id="{{this._id}}EventModal" class="modal">
+        <div class="Events-content">
+            <span class="close" onclick="this.parentElement.parentElement.style.display = 'none';">&times;</span>
+            {{> editEventForm }}
+        </div>
+    </div>
+    {{/each}}
+    {{else}}
+    <h1>No Event Pins</h1>
+    {{/if}}
+</div>
+
+<!--MODEL ROUTE DATA-->
+
+<div class="pinsContainer">
+    {{#if routesExist}}
+    <h4>Routes: {{data.routeDocs.length}}</h4>
+    {{#each data.routeDocs}}
+    <div class="pinEntry">
+        <h5 class="{{this.category}}-color">{{this.name}}</h5>
+        <div class="pinButtons">
+            <button onclick="loadRoute('{{this._id}}')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button onclick="deleteRoute('{{this._id}}')">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    <hr>
+    <div id="{{this._id}}RouteModal" class="modal">
+        <div class="Routes-content">
+            <span class="close" onclick="this.parentElement.parentElement.style.display = 'none';">&times;</span>
+            {{> editRouteForm }}
+        </div>
+    </div>
+    {{/each}}
+    {{else}}
+    <h1>No Route Pins</h1>
+    {{/if}}
+</div>
+
+<script>
+    var modal;
+
+    function loadModal(modalID) {
+        modal = document.getElementById(`${modalID}Modal`);
+        modal.style.display = "block";
+    }
+    function deletePin(id) {
+        var result = confirm("Want to delete this Pin?");
+        if (result) {
+            return fetch('/api/delete/' + id, {
+                method: 'delete'
+            })
+                .then(response => location.reload());
+        }
+    }
+
+    var event;
+
+    function loadEvent(eventsID) {
+        event = document.getElementById(`${eventsID}EventModal`);
+        event.style.display = "block";
+    }
+
+    function deleteEvent(id) {
+        var result = confirm("Want to delete this Pin?");
+        if (result) {
+            return fetch('/api/deleteEvent/' + id, {
+                method: 'delete'
+            })
+                .then(response => location.reload());
+        }
+    }
+
+    var route;
+
+    function loadRoute(routesID) {
+        route = document.getElementById(`${routesID}RouteModal`);
+        //console.log(route);
+        route.style.display = "block";
+    }
+
+    function deleteRoute(id) {
+        var result = confirm("Want to delete this Pin?");
+        if (result) {
+            return fetch('/api/deleteRoute/' + id, {
+                method: 'delete'
+            })
+                .then(response => location.reload());
+        }
+    }
+
+
+
+</script>
