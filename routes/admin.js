@@ -5,7 +5,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 var passport = require('passport');
 var cors = require('cors');
-
+/*
 var allowedOrigins = ['https://geopark-beta.herokuapp.com/'];
 router.use(cors({
     origin: function (origin, callback) {
@@ -19,7 +19,7 @@ router.use(cors({
         }
         return callback(null, true);
     }
-}));
+}));*/
 
 var { isAuth } = require('../middleware/isAuth');
 require('../middleware/passport')(passport);
